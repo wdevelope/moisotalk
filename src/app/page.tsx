@@ -9,7 +9,7 @@ export default function Home() {
           <div className="space-y-6">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
               <span className="text-accent">무작위 영어 채팅으로 배우는</span>
-              <span className="block flex items-center gap-3 text-primary">
+              <span className="block flex items-center gap-2 text-primary">
                 <Image
                   src="/logo_without_text.png"
                   alt="MoisoTalk 로고"
@@ -51,7 +51,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-br from-foreground/5 to-transparent" />
               <div className="absolute inset-0 p-6 flex flex-col gap-4">
                 <div className="flex items-center gap-2 text-sm">
-                  <Image src="/window.svg" alt="chat" width={16} height={16} />
+                  <span className="text-lg">💬</span>
                   <span className="font-mono text-primary font-semibold">
                     Realtime
                   </span>
@@ -79,19 +79,19 @@ export default function Home() {
 
         <section className="max-w-6xl mx-auto py-10 grid grid-cols-1 md:grid-cols-3 gap-6">
           <Feature
-            icon="/globe.svg"
+            icon="🌍"
             title="랜덤 매칭"
             desc="대기열에서 두 명을 무작위 매칭. 바로 대화를 시작해요."
             color="mint"
           />
           <Feature
-            icon="/window.svg"
+            icon="💬"
             title="실시간 채팅"
             desc="메시지가 즉시 동기화되어 매끄럽게 대화할 수 있어요."
             color="purple"
           />
           <Feature
-            icon="/file.svg"
+            icon="🎯"
             title="포인트 규칙"
             desc="한국어 사용 시 -1, 올-잉글리시 완료 시 +2 보너스!"
             color="orange"
@@ -123,8 +123,8 @@ function Feature({
 
   return (
     <div className={`rounded-xl border p-6 ${colorClasses[color]}`}>
-      <div className="flex items-center gap-2 mb-3">
-        <Image src={icon} alt="" width={18} height={18} aria-hidden />
+      <div className="flex items-center gap-3 mb-3">
+        <span className="text-2xl" aria-hidden>{icon}</span>
         <h3 className="font-semibold text-accent">{title}</h3>
       </div>
       <p className="text-sm text-foreground/80">{desc}</p>

@@ -22,6 +22,11 @@ export const metadata: Metadata = {
   title: "MoisoTalk | 랜덤 영어 채팅",
   description:
     "무작위 매칭으로 영어만 사용하는 실시간 채팅 서비스. 한국어 사용 시 -1 포인트, 올-잉글리시 완료 시 +2 보너스!",
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 };
 
 export default async function RootLayout({
@@ -44,7 +49,7 @@ export default async function RootLayout({
             <div className="max-w-6xl mx-auto flex items-center justify-between">
               <Link
                 href="/"
-                className="font-semibold flex items-center gap-3 text-accent"
+                className="font-semibold flex items-center gap-1 text-accent"
               >
                 <Image
                   src="/logo_without_text.png"
@@ -55,7 +60,7 @@ export default async function RootLayout({
                 />
                 <span className="text-lg">MoisoTalk</span>
               </Link>
-              <nav className="flex items-center gap-3 sm:gap-4 text-sm">
+              <nav className="flex items-center gap-2 text-sm">
                 <ThemeToggle />
                 {user ? (
                   <>
