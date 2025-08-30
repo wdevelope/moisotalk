@@ -56,7 +56,7 @@ Next.js 15 (App Router) + React 19 + Tailwind v4, with Supabase for Auth, DB, an
   - Dark mode colors: darker backgrounds (#0f1419), lighter accent (#4a90e2), adjusted secondary colors
   - CSS classes `.light` and `.dark` on `<html>` element control theme application
 - Design system: Card-based layouts with `rounded-xl`, `border-primary/20`, surface backgrounds. Focus states with `focus:border-primary`. Hover transitions.
-- Component patterns: 
+- Component patterns:
   - Feature cards with color variants (mint/purple/orange) via props
   - Forms with surface backgrounds, rounded borders, proper focus states
   - Chat UI with gradient backgrounds, message bubbles, color-coded status, backdrop-blur effects

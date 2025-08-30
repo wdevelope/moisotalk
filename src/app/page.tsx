@@ -51,7 +51,9 @@ export default function Home() {
               <div className="absolute inset-0 p-6 flex flex-col gap-4">
                 <div className="flex items-center gap-2 text-sm">
                   <Image src="/window.svg" alt="chat" width={16} height={16} />
-                  <span className="font-mono text-primary font-semibold">Realtime</span>
+                  <span className="font-mono text-primary font-semibold">
+                    Realtime
+                  </span>
                 </div>
                 <div className="flex-1 rounded-lg border border-primary/15 p-3 text-sm bg-background/80">
                   <p className="opacity-80">You: Hi! Where are you from?</p>
@@ -95,12 +97,6 @@ export default function Home() {
           />
         </section>
       </main>
-
-      <footer className="px-6 sm:px-10 py-10">
-        <div className="max-w-6xl mx-auto text-sm text-foreground/60">
-          © {new Date().getFullYear()} MoisoTalk
-        </div>
-      </footer>
     </div>
   );
 }
@@ -118,10 +114,10 @@ function Feature({
 }) {
   const colorClasses = {
     mint: "border-mint/20 bg-mint/5 text-mint",
-    purple: "border-purple/20 bg-purple/5 text-purple", 
-    orange: "border-orange/20 bg-orange/5 text-orange"
+    purple: "border-purple/20 bg-purple/5 text-purple",
+    orange: "border-orange/20 bg-orange/5 text-orange",
   };
-  
+
   return (
     <div className={`rounded-lg border p-5 ${colorClasses[color]}`}>
       <div className="flex items-center gap-2 mb-3">

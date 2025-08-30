@@ -151,7 +151,9 @@ export default function ChatRoomPage() {
         {messages.length === 0 ? (
           <div className="h-full flex items-center justify-center">
             <div className="text-center p-6 rounded-xl bg-background/80 border border-primary/10 backdrop-blur-sm">
-              <div className="text-purple text-lg font-semibold mb-2">환영합니다! 🎯</div>
+              <div className="text-purple text-lg font-semibold mb-2">
+                환영합니다! 🎯
+              </div>
               <p className="text-foreground/70 text-sm">
                 영어로 대화해보세요. 한국어 사용 시 포인트가 차감됩니다.
               </p>
@@ -159,7 +161,10 @@ export default function ChatRoomPage() {
           </div>
         ) : (
           messages.map((m) => (
-            <div key={m.id} className="text-sm p-3 rounded-lg bg-background/80 border border-primary/10 backdrop-blur-sm shadow-sm">
+            <div
+              key={m.id}
+              className="text-sm p-3 rounded-lg bg-background/80 border border-primary/10 backdrop-blur-sm shadow-sm"
+            >
               <span className="font-mono text-primary/80 mr-2 font-medium">
                 {m.sender_id.slice(0, 6)}
               </span>
@@ -194,7 +199,9 @@ export default function ChatRoomPage() {
         </button>
         {points !== null && (
           <div className="px-3 py-2 rounded-lg bg-mint/10 border border-mint/20">
-            <span className="text-xs text-mint font-medium">포인트: {points}</span>
+            <span className="text-xs text-mint font-medium">
+              포인트: {points}
+            </span>
           </div>
         )}
       </div>
