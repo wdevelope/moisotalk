@@ -37,18 +37,21 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="px-6 sm:px-10 py-4 border-b border-foreground/10">
+        <header className="px-6 sm:px-10 py-4 border-b border-accent/10 bg-surface">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <Link href="/" className="font-semibold flex items-center gap-2">
+            <Link
+              href="/"
+              className="font-semibold flex items-center gap-2 text-accent"
+            >
               <Image src="/logo.png" alt="MoisoTalk" width={28} height={28} />
               <span>MoisoTalk</span>
             </Link>
             <nav className="flex items-center gap-3 sm:gap-4 text-sm">
-      {user ? (
+              {user ? (
                 <>
                   <Link
                     href="/me"
-        className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10 transition"
+                    className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10 transition"
                   >
                     마이페이지
                   </Link>
@@ -58,13 +61,13 @@ export default async function RootLayout({
                 <>
                   <Link
                     href="/login"
-        className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10 transition"
+                    className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10 transition"
                   >
                     로그인
                   </Link>
                   <Link
                     href="/signup"
-        className="px-4 py-2 rounded bg-primary text-primary-foreground hover:opacity-90 transition"
+                    className="px-4 py-2 rounded bg-primary text-primary-foreground hover:opacity-90 transition"
                   >
                     회원가입
                   </Link>
@@ -74,6 +77,11 @@ export default async function RootLayout({
           </div>
         </header>
         {children}
+        <footer className="px-6 sm:px-10 py-10 bg-surface border-t border-accent/10 mt-10">
+          <div className="max-w-6xl mx-auto text-sm text-foreground/60">
+            © {new Date().getFullYear()} MoisoTalk
+          </div>
+        </footer>
       </body>
     </html>
   );

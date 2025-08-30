@@ -48,8 +48,14 @@ Next.js 15 (App Router) + React 19 + Tailwind v4, with Supabase for Auth, DB, an
 
 - Tailwind v4 tokens from `src/app/globals.css` via `@theme inline`:
   - Fonts wired from `next/font` (`--font-sans`, `--font-mono`); use `font-sans`, `font-mono`.
-  - Brand colors via CSS vars/tokens: `bg-background text-foreground`, plus `bg-primary text-primary-foreground`, `text-accent`, and `bg-surface`.
-- Header/footer live in `layout.tsx`; header uses `/logo.png` and accent borders/backgrounds.
+  - Brand colors via CSS vars/tokens: Primary #1DA1F2 (aqua blue), Accent #004E92 (navy), Surface #F7F9FB, Secondary colors: mint #10B981, purple #8B5CF6, orange #F59E0B.
+  - Color usage: `bg-background text-foreground`, `bg-primary text-primary-foreground`, `text-accent`, `bg-surface`, `text-mint`, `text-purple`, `text-orange`.
+- Design system: Card-based layouts with `rounded-xl`, `border-primary/20`, surface backgrounds. Focus states with `focus:border-primary`. Hover transitions.
+- Component patterns: 
+  - Feature cards with color variants (mint/purple/orange) via props
+  - Forms with surface backgrounds, rounded borders, proper focus states
+  - Chat UI with gradient backgrounds, message bubbles, color-coded status
+- Header/footer live in `layout.tsx`; header uses `/logo.png` with conditional auth navigation.
 - Fonts loaded in `src/app/layout.tsx` (Geist, Geist_Mono) and applied on `<body>`.
 - Path alias `@/*` → `./src/*` (see `tsconfig.json`).
 

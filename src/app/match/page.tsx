@@ -45,28 +45,34 @@ export default function MatchPage() {
 
   return (
     <div className="max-w-lg mx-auto py-10 font-sans text-foreground">
-      <h1 className="text-2xl font-bold mb-4">랜덤 매칭</h1>
-      <p className="text-sm text-foreground/80 mb-6">
-        대기열에 등록하면 다른 사용자와 무작위로 매칭됩니다.
-      </p>
-  <div className="flex gap-3">
-        <button
-          onClick={start}
-          disabled={waiting}
-      className="px-4 py-2 rounded bg-primary text-primary-foreground disabled:opacity-60"
-        >
-          {waiting ? "대기 중..." : "채팅 시작"}
-        </button>
-        {waiting && (
+      <div className="bg-surface rounded-xl border border-primary/20 p-8 shadow-sm">
+        <h1 className="text-2xl font-bold mb-4 text-accent">랜덤 매칭</h1>
+        <p className="text-sm text-foreground/80 mb-6">
+          대기열에 등록하면 다른 사용자와 무작위로 매칭됩니다.
+        </p>
+        <div className="flex gap-3">
           <button
-            onClick={cancel}
-    className="px-4 py-2 rounded border border-accent/30 hover:bg-accent/10"
+            onClick={start}
+            disabled={waiting}
+            className="px-6 py-3 rounded-lg bg-primary text-primary-foreground disabled:opacity-60 font-semibold hover:opacity-90 transition flex-1"
           >
-            취소
+            {waiting ? "대기 중..." : "채팅 시작"}
           </button>
+          {waiting && (
+            <button
+              onClick={cancel}
+              className="px-4 py-3 rounded-lg border border-accent/30 hover:bg-accent/10 text-accent font-medium transition"
+            >
+              취소
+            </button>
+          )}
+        </div>
+        {error && (
+          <div className="mt-4 p-3 rounded-lg bg-orange/10 border border-orange/20">
+            <p className="text-sm text-orange">{error}</p>
+          </div>
         )}
       </div>
-  {error && <p className="mt-4 text-sm text-orange-600">{error}</p>}
     </div>
   );
 }

@@ -146,20 +146,31 @@ export default function ChatRoomPage() {
     <div className="max-w-3xl mx-auto py-6 h-[calc(100vh-80px)] flex flex-col">
       <div
         ref={listRef}
-        className="flex-1 overflow-y-auto rounded border border-foreground/15 p-4 space-y-3 bg-surface"
+        className="flex-1 overflow-y-auto rounded-xl border border-primary/20 p-4 space-y-3 bg-gradient-to-br from-surface to-background"
       >
-        {messages.map((m) => (
-          <div key={m.id} className="text-sm">
-            <span className="font-mono text-foreground/60 mr-2">
-              {m.sender_id.slice(0, 6)}
-            </span>
-            <span>{m.content}</span>
+        {messages.length === 0 ? (
+          <div className="h-full flex items-center justify-center">
+            <div className="text-center p-6 rounded-xl bg-background/80 border border-primary/10">
+              <div className="text-purple text-lg font-semibold mb-2">환영합니다! 🎯</div>
+              <p className="text-foreground/70 text-sm">
+                영어로 대화해보세요. 한국어 사용 시 포인트가 차감됩니다.
+              </p>
+            </div>
           </div>
-        ))}
+        ) : (
+          messages.map((m) => (
+            <div key={m.id} className="text-sm p-3 rounded-lg bg-background/80 border border-primary/10">
+              <span className="font-mono text-primary/80 mr-2 font-medium">
+                {m.sender_id.slice(0, 6)}
+              </span>
+              <span>{m.content}</span>
+            </div>
+          ))
+        )}
       </div>
-      <div className="mt-4 flex gap-2 items-center">
+      <div className="mt-4 flex gap-2 items-center p-4 bg-surface rounded-xl border border-primary/20">
         <input
-          className="flex-1 border rounded px-3 py-2 bg-background focus:border-accent/40 focus:outline-none"
+          className="flex-1 border border-foreground/20 rounded-lg px-4 py-3 bg-background focus:border-primary focus:outline-none transition"
           placeholder="메시지를 입력하세요"
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -170,19 +181,21 @@ export default function ChatRoomPage() {
         />
         <button
           onClick={send}
-          className="px-4 py-2 rounded bg-primary text-primary-foreground disabled:opacity-50"
+          className="px-6 py-3 rounded-lg bg-primary text-primary-foreground disabled:opacity-50 font-semibold hover:opacity-90 transition"
           disabled={sending || (points !== null && points <= 0)}
         >
           전송
         </button>
         <button
           onClick={endChat}
-          className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10"
+          className="px-4 py-3 rounded-lg border border-accent/30 hover:bg-accent/10 text-accent font-medium transition"
         >
           종료
         </button>
         {points !== null && (
-          <span className="text-sm text-foreground/60">포인트: {points}</span>
+          <div className="px-3 py-2 rounded-lg bg-mint/10 border border-mint/20">
+            <span className="text-xs text-mint font-medium">포인트: {points}</span>
+          </div>
         )}
       </div>
     </div>

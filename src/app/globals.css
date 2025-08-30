@@ -3,18 +3,18 @@
 :root {
   /* Base colors */
   --background: #ffffff; /* White */
-  --foreground: #1B2B3A; /* Navy-ish readable text */
+  --foreground: #1b2b3a; /* Navy-ish readable text */
 
   /* Brand palette (style.md) */
-  --primary: #1DA1F2; /* Aqua blue */
+  --primary: #1da1f2; /* Aqua blue */
   --primary-foreground: #ffffff;
 
-  --accent: #004E92; /* Deep blue for emphasis */
-  --surface: #F7F9FB; /* Light gray surfaces */
+  --accent: #004e92; /* Deep blue for emphasis */
+  --surface: #f7f9fb; /* Light gray surfaces */
 
-  --secondary-mint: #3DDC97;
-  --secondary-purple: #A78BFA;
-  --secondary-orange: #FFB347;
+  --secondary-mint: #3ddc97;
+  --secondary-purple: #a78bfa;
+  --secondary-orange: #ffb347;
 }
 
 @theme inline {
@@ -36,7 +36,7 @@
     --background: #0a0a0a;
     --foreground: #ededed;
     --surface: #0f1115;
-    --primary: #3BAFDA;
+    --primary: #3bafda;
     --primary-foreground: #0a0a0a;
     --accent: #2b5da7;
   }
