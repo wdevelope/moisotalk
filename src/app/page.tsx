@@ -3,31 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="font-sans bg-background text-foreground min-h-screen">
-      <header className="px-6 sm:px-10 py-6">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image src="/globe.svg" alt="MoisoTalk" width={28} height={28} />
-            <span className="text-lg sm:text-xl font-semibold tracking-tight">
-              MoisoTalk
-            </span>
-          </div>
-          <nav className="flex items-center gap-3 sm:gap-4">
-            <Link
-              href="/login"
-              className="px-3 py-2 text-sm rounded border border-foreground/20 hover:bg-foreground/10 transition"
-            >
-              로그인
-            </Link>
-            <Link
-              href="/signup"
-              className="px-4 py-2 text-sm rounded bg-foreground text-background hover:opacity-90 transition"
-            >
-              회원가입
-            </Link>
-          </nav>
-        </div>
-      </header>
+  <div className="font-sans bg-background text-foreground min-h-screen">
 
       <main className="px-6 sm:px-10">
         <section className="max-w-6xl mx-auto py-12 sm:py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -110,7 +86,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="px-6 sm:px-10 py-10">
+  <footer className="px-6 sm:px-10 py-10">
         <div className="max-w-6xl mx-auto text-sm text-foreground/60">
           © {new Date().getFullYear()} MoisoTalk
         </div>

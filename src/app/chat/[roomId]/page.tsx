@@ -92,7 +92,12 @@ export default function ChatRoomPage() {
     }
     // Client-side pre-check for Korean
     const hasKorean = /[\u1100-\u11FF\u3130-\u318F\uAC00-\uD7AF]/.test(trimmed);
-    if (hasKorean && !confirm("한국어가 감지되었습니다. 전송 시 -1 포인트가 차감됩니다. 계속하시겠습니까?")) {
+    if (
+      hasKorean &&
+      !confirm(
+        "한국어가 감지되었습니다. 전송 시 -1 포인트가 차감됩니다. 계속하시겠습니까?"
+      )
+    ) {
       return;
     }
     try {

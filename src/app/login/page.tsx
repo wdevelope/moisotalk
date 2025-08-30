@@ -26,10 +26,10 @@ export default function LoginPage() {
       password,
     });
     if (error) setMessage(error.message);
-      else {
-        setMessage("로그인 성공");
-        router.push("/chat");
-      }
+    else {
+      setMessage("로그인 성공");
+      router.push("/");
+    }
     setLoading(false);
     // Try to finalize pending profile after login
     ensurePendingProfile().catch(() => {});

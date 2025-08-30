@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  if (!user)
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
   // Verify the caller is a participant of the room (RLS-protected check)
   const { data: membership, error: memErr } = await supabase
@@ -25,12 +26,18 @@ export async function POST(req: NextRequest) {
     .eq("room_id", roomId)
     .eq("user_id", user.id)
     .maybeSingle();
-  if (memErr) return NextResponse.json({ error: memErr.message }, { status: 400 });
-  if (!membership) return NextResponse.json({ error: "forbidden" }, { status: 403 });
+  if (memErr)
+    return NextResponse.json({ error: memErr.message }, { status: 400 });
+  if (!membership)
+    return NextResponse.json({ error: "forbidden" }, { status: 403 });
 
   // If any Korean appeared in the room, no rewards
-  const { data: hasKorean, error: rpcErr } = await supabase.rpc("room_has_korean", { p_room: roomId });
-  if (rpcErr) return NextResponse.json({ error: rpcErr.message }, { status: 400 });
+  const { data: hasKorean, error: rpcErr } = await supabase.rpc(
+    "room_has_korean",
+    { p_room: roomId }
+  );
+  if (rpcErr)
+    return NextResponse.json({ error: rpcErr.message }, { status: 400 });
   if (hasKorean) {
     // Optionally mark room inactive
     await svc.from("chat_rooms").update({ is_active: false }).eq("id", roomId);
@@ -42,7 +49,8 @@ export async function POST(req: NextRequest) {
     .from("chat_participants")
     .select("user_id")
     .eq("room_id", roomId);
-  if (partErr) return NextResponse.json({ error: partErr.message }, { status: 400 });
+  if (partErr)
+    return NextResponse.json({ error: partErr.message }, { status: 400 });
   const ids = (participants ?? []).map((p: any) => p.user_id);
 
   // Increment points for each participant (small N, fine to loop)
@@ -60,11 +68,16 @@ export async function POST(req: NextRequest) {
       .eq("id", id)
       .select("points")
       .single();
-    if (updErr) return NextResponse.json({ error: updErr.message }, { status: 400 });
+    if (updErr)
+      return NextResponse.json({ error: updErr.message }, { status: 400 });
     if (id === user.id) callerNewPoints = updated.points;
   }
 
   await svc.from("chat_rooms").update({ is_active: false }).eq("id", roomId);
 
-  return NextResponse.json({ rewarded: true, gained: 2, points: callerNewPoints });
+  return NextResponse.json({
+    rewarded: true,
+    gained: 2,
+    points: callerNewPoints,
+  });
 }
