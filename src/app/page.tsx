@@ -11,7 +11,7 @@ export default function Home() {
               <span className="text-accent">무작위 영어 채팅으로 배우는</span>
               <span className="block flex items-center gap-2 text-primary">
                 <Image
-                  src="/logo.png"
+                  src="/logo_without_text.png"
                   alt="MoisoTalk 로고"
                   width={40}
                   height={40}
@@ -27,19 +27,19 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/signup"
-                className="px-5 py-3 rounded bg-primary text-primary-foreground text-sm sm:text-base font-medium hover:opacity-90 transition text-center"
+                className="px-6 py-3 rounded-xl bg-primary text-primary-foreground text-sm sm:text-base font-medium hover:opacity-90 transition text-center shadow-lg"
               >
                 지금 시작하기
               </Link>
               <Link
                 href="/login"
-                className="px-5 py-3 rounded border border-accent/30 text-sm sm:text-base hover:bg-accent/10 transition text-center"
+                className="px-6 py-3 rounded-xl border border-accent/30 text-sm sm:text-base hover:bg-accent/10 transition text-center"
               >
                 이미 계정이 있어요
               </Link>
               <Link
                 href="/match"
-                className="px-5 py-3 rounded border border-accent/30 text-sm sm:text-base hover:bg-accent/10 transition text-center"
+                className="px-6 py-3 rounded-xl border border-mint/40 text-sm sm:text-base hover:bg-mint/10 transition text-center text-mint"
               >
                 채팅 바로 시작
               </Link>
@@ -61,13 +61,13 @@ export default function Home() {
                   <p className="opacity-80">You: Seoul! Nice to meet you :)</p>
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-xs">
-                  <div className="rounded border border-mint/30 bg-mint/10 p-2 text-center text-mint font-medium">
+                  <div className="rounded-xl border border-mint/30 bg-mint/10 p-2 text-center text-mint font-medium">
                     Random Match
                   </div>
-                  <div className="rounded border border-purple/30 bg-purple/10 p-2 text-center text-purple font-medium">
+                  <div className="rounded-xl border border-purple/30 bg-purple/10 p-2 text-center text-purple font-medium">
                     Points
                   </div>
-                  <div className="rounded border border-orange/30 bg-orange/10 p-2 text-center text-orange font-medium">
+                  <div className="rounded-xl border border-orange/30 bg-orange/10 p-2 text-center text-orange font-medium">
                     English Only
                   </div>
                 </div>
@@ -113,13 +113,15 @@ function Feature({
   color: "mint" | "purple" | "orange";
 }) {
   const colorClasses = {
-    mint: "border-mint/20 bg-mint/5 text-mint",
-    purple: "border-purple/20 bg-purple/5 text-purple",
-    orange: "border-orange/20 bg-orange/5 text-orange",
+    mint: "border-mint/20 bg-mint/5 text-mint shadow-sm hover:shadow-md transition-all",
+    purple:
+      "border-purple/20 bg-purple/5 text-purple shadow-sm hover:shadow-md transition-all",
+    orange:
+      "border-orange/20 bg-orange/5 text-orange shadow-sm hover:shadow-md transition-all",
   };
 
   return (
-    <div className={`rounded-lg border p-5 ${colorClasses[color]}`}>
+    <div className={`rounded-xl border p-6 ${colorClasses[color]}`}>
       <div className="flex items-center gap-2 mb-3">
         <Image src={icon} alt="" width={18} height={18} aria-hidden />
         <h3 className="font-semibold text-accent">{title}</h3>

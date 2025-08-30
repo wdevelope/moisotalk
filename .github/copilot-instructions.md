@@ -48,23 +48,27 @@ Next.js 15 (App Router) + React 19 + Tailwind v4, with Supabase for Auth, DB, an
 
 - Tailwind v4 tokens from `src/app/globals.css` via `@theme inline`:
   - Fonts wired from `next/font` (`--font-sans`, `--font-mono`); use `font-sans`, `font-mono`.
-  - Brand colors via CSS vars/tokens: Primary #1DA1F2 (aqua blue), Accent #004E92 (navy), Surface #F7F9FB, Secondary colors: mint #10B981, purple #8B5CF6, orange #F59E0B.
+  - Brand colors via CSS vars/tokens: Primary #1DA1F2 (aqua blue), Accent #004E92 (navy), Surface #F7F9FB, Secondary colors: mint #3DDC97, purple #A78BFA, orange #FFB347.
   - Color usage: `bg-background text-foreground`, `bg-primary text-primary-foreground`, `text-accent`, `bg-surface`, `text-mint`, `text-purple`, `text-orange`.
 - Theme system: Light/dark mode toggle with system preference detection
   - `ThemeProvider` context in `src/components/ThemeProvider.tsx` manages theme state
   - `ThemeToggle` component in header toggles between light/dark modes (☀️🌙 icons)
   - Dark mode colors: darker backgrounds (#0f1419), lighter accent (#4a90e2), adjusted secondary colors
   - CSS classes `.light` and `.dark` on `<html>` element control theme application
-- Design system: Card-based layouts with `rounded-xl`, `border-primary/20`, surface backgrounds. Focus states with `focus:border-primary`. Hover transitions.
+- Design system (style.md based): Soft, friendly tone with rounded designs
+  - Card-based layouts with `rounded-xl`, `border-primary/20`, surface backgrounds
+  - Focus states with `focus:border-primary`, hover transitions with `transition-all`
+  - Shadow effects: `shadow-sm`, `shadow-md`, `shadow-lg` for depth
+  - Button styles: `rounded-xl` with proper padding, hover effects, and color-coded variants
 - Component patterns:
-  - Feature cards with color variants (mint/purple/orange) via props
+  - Feature cards with color variants (mint/purple/orange) and hover effects
   - Forms with surface backgrounds, rounded borders, proper focus states
   - Chat UI with gradient backgrounds, message bubbles, color-coded status, backdrop-blur effects
+  - Navigation with rounded buttons and consistent spacing
+- Typography: San-serif fonts (Geist) for modern, friendly readability
 - Header/footer live in `layout.tsx`; header uses `/logo.png` with conditional auth navigation and theme toggle.
 - Fonts loaded in `src/app/layout.tsx` (Geist, Geist_Mono) and applied on `<body>`.
-- Path alias `@/*` → `./src/*` (see `tsconfig.json`).
-
-### Build & run
+- Path alias `@/*` → `./src/*` (see `tsconfig.json`).### Build & run
 
 - Dev: `pnpm dev` (http://localhost:3000), Build: `pnpm build`, Start: `pnpm start`.
 - Env (`.env.local`): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE` (server-only).

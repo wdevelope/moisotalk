@@ -5,16 +5,17 @@
   --background: #ffffff;
   --foreground: #1b2b3a;
 
-  /* Brand palette (style.md) */
-  --primary: #1da1f2; /* Aqua blue */
+  /* Brand palette (style.md aligned) */
+  --primary: #1da1f2; /* Aqua blue #1DA1F2 */
   --primary-foreground: #ffffff;
 
-  --accent: #004e92; /* Deep blue for emphasis */
-  --surface: #f7f9fb; /* Light gray surfaces */
+  --accent: #004e92; /* Deep blue #004E92 for emphasis */
+  --surface: #f7f9fb; /* Light gray #F7F9FB surfaces */
 
-  --secondary-mint: #10b981;
-  --secondary-purple: #8b5cf6;
-  --secondary-orange: #f59e0b;
+  /* Secondary colors from style.md */
+  --secondary-mint: #3ddc97; /* Mint green #3DDC97 */
+  --secondary-purple: #a78bfa; /* Light purple #A78BFA */
+  --secondary-orange: #ffb347; /* Soft orange #FFB347 */
 }
 
 :root.dark {
@@ -23,15 +24,16 @@
   --foreground: #e1e8f0;
 
   /* Brand palette - Dark mode adjusted */
-  --primary: #1da1f2; /* Keep aqua blue */
+  --primary: #3bafda; /* Slightly lighter aqua blue for dark mode */
   --primary-foreground: #0f1419;
 
   --accent: #4a90e2; /* Lighter blue for dark mode */
   --surface: #1a202c; /* Dark surface */
 
-  --secondary-mint: #34d399;
-  --secondary-purple: #a78bfa;
-  --secondary-orange: #fbbf24;
+  /* Secondary colors - Dark mode adjusted */
+  --secondary-mint: #4ade80; /* Brighter mint for dark mode */
+  --secondary-purple: #c4b5fd; /* Lighter purple for dark mode */
+  --secondary-orange: #fcd34d; /* Brighter orange for dark mode */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -41,16 +43,31 @@
     --foreground: #e1e8f0;
 
     /* Brand palette - Dark mode adjusted */
-    --primary: #1da1f2;
+    --primary: #3bafda;
     --primary-foreground: #0f1419;
 
     --accent: #4a90e2;
     --surface: #1a202c;
 
-    --secondary-mint: #34d399;
-    --secondary-purple: #a78bfa;
-    --secondary-orange: #fbbf24;
+    /* Secondary colors - Dark mode adjusted */
+    --secondary-mint: #4ade80;
+    --secondary-purple: #c4b5fd;
+    --secondary-orange: #fcd34d;
   }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-mint: var(--secondary-mint);
+  --color-purple: var(--secondary-purple);
+  --color-orange: var(--secondary-orange);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 body {
