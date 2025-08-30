@@ -35,7 +35,11 @@ function PaymentResultContent() {
     }
   }, [searchParams]);
 
-  const verifyPayment = async (paymentKey: string, orderId: string, amount: string) => {
+  const verifyPayment = async (
+    paymentKey: string,
+    orderId: string,
+    amount: string
+  ) => {
     try {
       // TODO: 실제 결제 검증 API 호출
       // const response = await fetch("/api/payment/verify", {
@@ -43,7 +47,7 @@ function PaymentResultContent() {
       //   headers: { "Content-Type": "application/json" },
       //   body: JSON.stringify({ paymentKey, orderId, amount }),
       // });
-      
+
       // 임시로 성공 처리
       setTimeout(() => {
         setSuccess(true);
@@ -68,24 +72,24 @@ function PaymentResultContent() {
 
   return (
     <div className="max-w-2xl mx-auto py-20 px-6 text-center">
-      <div className={`w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center ${
-        success ? "bg-mint/20" : "bg-orange/20"
-      }`}>
-        <span className="text-3xl">
-          {success ? "✅" : "❌"}
-        </span>
+      <div
+        className={`w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center ${
+          success ? "bg-mint/20" : "bg-orange/20"
+        }`}
+      >
+        <span className="text-3xl">{success ? "✅" : "❌"}</span>
       </div>
-      
-      <h1 className={`text-2xl font-bold mb-4 ${
-        success ? "text-mint" : "text-orange"
-      }`}>
+
+      <h1
+        className={`text-2xl font-bold mb-4 ${
+          success ? "text-mint" : "text-orange"
+        }`}
+      >
         {success ? "결제 완료" : "결제 실패"}
       </h1>
-      
-      <p className="text-foreground/80 mb-8">
-        {message}
-      </p>
-      
+
+      <p className="text-foreground/80 mb-8">{message}</p>
+
       <div className="space-y-3">
         <Link
           href="/me"
@@ -93,7 +97,7 @@ function PaymentResultContent() {
         >
           마이페이지로 가기
         </Link>
-        
+
         {!success && (
           <Link
             href="/charge"
@@ -109,12 +113,14 @@ function PaymentResultContent() {
 
 export default function PaymentResultPage() {
   return (
-    <Suspense fallback={
-      <div className="max-w-2xl mx-auto py-20 text-center">
-        <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
-        <p className="text-lg">페이지를 로딩하고 있습니다...</p>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="max-w-2xl mx-auto py-20 text-center">
+          <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-lg">페이지를 로딩하고 있습니다...</p>
+        </div>
+      }
+    >
       <PaymentResultContent />
     </Suspense>
   );

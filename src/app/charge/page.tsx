@@ -19,7 +19,7 @@ const pointPackages: PointPackage[] = [
     price: 1000,
   },
   {
-    id: "standard", 
+    id: "standard",
     points: 300,
     price: 2700,
     bonus: 30,
@@ -44,12 +44,16 @@ export default function ChargePage() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [currentPoints, setCurrentPoints] = useState<number>(0);
-  const [selectedPackage, setSelectedPackage] = useState<PointPackage | null>(null);
+  const [selectedPackage, setSelectedPackage] = useState<PointPackage | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getUser() {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) {
         router.push("/login");
         return;
@@ -62,7 +66,7 @@ export default function ChargePage() {
         .select("points")
         .eq("id", user.id)
         .single();
-      
+
       if (profile) {
         setCurrentPoints(profile.points);
       }
@@ -76,7 +80,11 @@ export default function ChargePage() {
     setLoading(true);
     try {
       // TODO: 토스페이먼츠 연동 로직 구현
-      alert(`결제 연동 준비 중입니다.\n선택한 상품: ${selectedPackage.points}포인트 (${selectedPackage.price.toLocaleString()}원)`);
+      alert(
+        `결제 연동 준비 중입니다.\n선택한 상품: ${
+          selectedPackage.points
+        }포인트 (${selectedPackage.price.toLocaleString()}원)`
+      );
     } catch (error) {
       console.error("Payment error:", error);
       alert("결제 중 오류가 발생했습니다.");
@@ -99,7 +107,9 @@ export default function ChargePage() {
         <h1 className="text-3xl font-bold text-accent mb-4">포인트 충전</h1>
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-surface border border-primary/20">
           <span className="text-sm text-foreground/70">현재 보유 포인트:</span>
-          <span className="text-lg font-semibold text-primary">{currentPoints.toLocaleString()}P</span>
+          <span className="text-lg font-semibold text-primary">
+            {currentPoints.toLocaleString()}P
+          </span>
         </div>
       </div>
 
@@ -121,7 +131,7 @@ export default function ChargePage() {
                 </span>
               </div>
             )}
-            
+
             <div className="text-center">
               <div className="text-2xl font-bold text-accent mb-2">
                 {pkg.points.toLocaleString()}P
@@ -150,17 +160,23 @@ export default function ChargePage() {
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-foreground/70">상품:</span>
-              <span className="font-medium">{selectedPackage.points.toLocaleString()}포인트</span>
+              <span className="font-medium">
+                {selectedPackage.points.toLocaleString()}포인트
+              </span>
             </div>
             {selectedPackage.bonus && (
               <div className="flex justify-between">
                 <span className="text-foreground/70">보너스:</span>
-                <span className="font-medium text-mint">+{selectedPackage.bonus.toLocaleString()}포인트</span>
+                <span className="font-medium text-mint">
+                  +{selectedPackage.bonus.toLocaleString()}포인트
+                </span>
               </div>
             )}
             <div className="flex justify-between text-base font-semibold pt-2 border-t border-foreground/10">
               <span>총 결제 금액:</span>
-              <span className="text-primary">{selectedPackage.price.toLocaleString()}원</span>
+              <span className="text-primary">
+                {selectedPackage.price.toLocaleString()}원
+              </span>
             </div>
           </div>
         </div>
@@ -172,9 +188,13 @@ export default function ChargePage() {
           disabled={!selectedPackage || loading}
           className="px-8 py-3 rounded-xl bg-primary text-primary-foreground font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 transition-all shadow-lg"
         >
-          {loading ? "처리 중..." : selectedPackage ? `${selectedPackage.price.toLocaleString()}원 결제하기` : "상품을 선택해주세요"}
+          {loading
+            ? "처리 중..."
+            : selectedPackage
+            ? `${selectedPackage.price.toLocaleString()}원 결제하기`
+            : "상품을 선택해주세요"}
         </button>
-        
+
         <div className="mt-4 text-xs text-foreground/60 space-y-1">
           <p>• 결제는 토스페이먼츠를 통해 안전하게 처리됩니다.</p>
           <p>• 결제 완료 후 포인트는 즉시 충전됩니다.</p>

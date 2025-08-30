@@ -124,7 +124,9 @@ function Feature({
   return (
     <div className={`rounded-xl border p-6 ${colorClasses[color]}`}>
       <div className="flex items-center gap-3 mb-3">
-        <span className="text-2xl" aria-hidden>{icon}</span>
+        <span className="text-2xl" aria-hidden>
+          {icon}
+        </span>
         <h3 className="font-semibold text-accent">{title}</h3>
       </div>
       <p className="text-sm text-foreground/80">{desc}</p>
