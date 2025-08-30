@@ -41,37 +41,52 @@ alter table public.chat_rooms enable row level security;
 alter table public.chat_participants enable row level security;
 alter table public.messages enable row level security;
 
--- Policies
+-- * 위까지 성공
 -- profiles: users can read all basic info and manage their own row
-create policy if not exists "profiles_select_all" on public.profiles
-  for select using (true);
+drop policy if exists "profiles_select_all" on public.profiles;
+create policy "profiles_select_all" on public.profiles
+  for select
+  using (true);
 
-create policy if not exists "profiles_insert_self" on public.profiles
-  for insert with check (auth.uid() = id);
+drop policy if exists "profiles_insert_self" on public.profiles;
+create policy "profiles_insert_self" on public.profiles
+  for insert
+  with check (auth.uid() = id);
 
-create policy if not exists "profiles_update_self" on public.profiles
-  for update using (auth.uid() = id);
+drop policy if exists "profiles_update_self" on public.profiles;
+create policy "profiles_update_self" on public.profiles
+  for update
+  using (auth.uid() = id);
 
--- chat_rooms: readable by all, insert by authenticated, updates limited
-create policy if not exists "chat_rooms_select_all" on public.chat_rooms
-  for select using (true);
+drop policy if exists "chat_rooms_select_all" on public.chat_rooms;
+create policy "chat_rooms_select_all" on public.chat_rooms
+  for select
+  using (true);
 
-create policy if not exists "chat_rooms_insert_auth" on public.chat_rooms
-  for insert with check (auth.role() = 'authenticated');
+drop policy if exists "chat_rooms_insert_auth" on public.chat_rooms;
+create policy "chat_rooms_insert_auth" on public.chat_rooms
+  for insert
+  with check (auth.role() = 'authenticated');
 
-create policy if not exists "chat_rooms_update_auth" on public.chat_rooms
-  for update using (auth.role() = 'authenticated');
+drop policy if exists "chat_rooms_update_auth" on public.chat_rooms;
+create policy "chat_rooms_update_auth" on public.chat_rooms
+  for update
+  using (auth.role() = 'authenticated');
 
--- chat_participants: select all, insert only for self
-create policy if not exists "chat_participants_select_all" on public.chat_participants
-  for select using (true);
+drop policy if exists "chat_participants_select_all" on public.chat_participants;
+create policy "chat_participants_select_all" on public.chat_participants
+  for select
+  using (true);
 
-create policy if not exists "chat_participants_insert_self" on public.chat_participants
-  for insert with check (auth.uid() = user_id);
+drop policy if exists "chat_participants_insert_self" on public.chat_participants;
+create policy "chat_participants_insert_self" on public.chat_participants
+  for insert
+  with check (auth.uid() = user_id);
 
--- messages: readable by participants; insert only by sender = auth.uid
-create policy if not exists "messages_select_room_participants" on public.messages
-  for select using (
+drop policy if exists "messages_select_room_participants" on public.messages;
+create policy "messages_select_room_participants" on public.messages
+  for select
+  using (
     exists (
       select 1 from public.chat_participants cp
       where cp.room_id = messages.room_id
@@ -79,8 +94,10 @@ create policy if not exists "messages_select_room_participants" on public.messag
     )
   );
 
-create policy if not exists "messages_insert_by_sender" on public.messages
-  for insert with check (auth.uid() = sender_id);
+drop policy if exists "messages_insert_by_sender" on public.messages;
+create policy "messages_insert_by_sender" on public.messages
+  for insert
+  with check (auth.uid() = sender_id);
 
 -- Helpful index
 create index if not exists messages_room_created_idx on public.messages(room_id, created_at desc);
