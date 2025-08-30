@@ -5,16 +5,18 @@ Next.js 15 (App Router) + React 19 + Tailwind v4, with Supabase for Auth, DB, an
 ### Architecture
 
 - App Router under `src/app/`.
-  - `src/app/page.tsx`: MoisoTalk home with hero + CTAs to `/signup`, `/login`, `/match`.
-  - `src/app/signup/page.tsx`, `src/app/login/page.tsx`: email/password auth UI.
+  - `src/app/page.tsx`: Home with hero, CTAs to `/signup`, `/login`, `/match`.
+  - `src/app/signup/page.tsx`, `src/app/login/page.tsx`: auth UI; signup uses select fields for gender/age.
   - `src/app/match/page.tsx`: enqueue user and poll for a match.
-  - `src/app/chat/[roomId]/page.tsx`: realtime chat via Supabase channels.
+  - `src/app/chat/[roomId]/page.tsx`: realtime chat via Supabase channels; sends via API.
+  - `src/app/me/page.tsx`: My Page; shows profile basics and points.
+  - `src/app/layout.tsx`: global header/footer, logo, metadata (SEO).
 - Supabase clients
   - Browser: `src/lib/supabaseClient.ts` (uses `@supabase/ssr` createBrowserClient).
   - Server: `src/lib/server/supabase.ts` (uses `@supabase/ssr` createServerClient with cookie auth).
   - Service (server-only): `src/lib/server/supabaseService.ts` for privileged ops (not exposed to client).
 - DB schema: `supabase/schema.sql` (tables, RLS policies, indices, matching RPC).
-- Static assets in `public/` (use with `next/image` as `/file.svg`).
+- Static assets in `public/` (use with `next/image`), logo at `/logo.png`.
 
 ### Data model (see `supabase/schema.sql`)
 
@@ -24,6 +26,7 @@ Next.js 15 (App Router) + React 19 + Tailwind v4, with Supabase for Auth, DB, an
 - `waiting_pool(user_id, enqueued_at)`; used for random matching.
 - Policies: RLS enabled; self-only inserts/updates where appropriate; messages readable by room participants.
 - RPC: `find_or_create_match(p_user uuid)` pairs two queued users, creates room + participants, and returns `room id`.
+- RPC: `room_has_korean(p_room uuid)` returns whether any message contains Korean (used for rewards).
 
 ### API surface (Next route handlers)
 
@@ -31,18 +34,22 @@ Next.js 15 (App Router) + React 19 + Tailwind v4, with Supabase for Auth, DB, an
 - `POST /api/match/start` — upsert into `waiting_pool` for current user.
 - `POST /api/match/try` — calls RPC to return `{ roomId }` if matched.
 - `POST /api/match/cancel` — remove current user from `waiting_pool`.
+- `POST /api/messages/send` — insert a message; server-side Korean detection and -1 point if Korean.
+- `POST /api/chat/end` — if the room has no Korean, add +2 points to all participants; marks room inactive.
 
 ### Auth flows
 
 - Sign-up: `signUpWithEmail` in `src/lib/auth.ts` calls Supabase Auth; then `/api/profiles` to insert into `profiles`.
 - If email confirmation is required (no session), we stash pending profile in `localStorage` and finalize on first login via `ensurePendingProfile`.
 - Client vs Server: server components by default; add `'use client'` for stateful/interactive pages.
+- Login success returns to `/` (home). Header shows "마이페이지" and a client `LogoutButton` when authenticated.
 
 ### Styling & conventions
 
 - Tailwind v4 tokens from `src/app/globals.css` via `@theme inline`:
   - Fonts wired from `next/font` (`--font-sans`, `--font-mono`); use `font-sans`, `font-mono`.
-  - Colors via CSS vars: `bg-background text-foreground`.
+  - Brand colors via CSS vars/tokens: `bg-background text-foreground`, plus `bg-primary text-primary-foreground`, `text-accent`, and `bg-surface`.
+- Header/footer live in `layout.tsx`; header uses `/logo.png` and accent borders/backgrounds.
 - Fonts loaded in `src/app/layout.tsx` (Geist, Geist_Mono) and applied on `<body>`.
 - Path alias `@/*` → `./src/*` (see `tsconfig.json`).
 
@@ -54,6 +61,7 @@ Next.js 15 (App Router) + React 19 + Tailwind v4, with Supabase for Auth, DB, an
 ### Realtime & matching notes
 
 - Enable Realtime on `public.messages` in Supabase if not already; UI subscribes to `postgres_changes` INSERT for the room.
+- Chat sends go through `/api/messages/send` (don't insert directly from the client to enforce points logic).
 - Matching is optimistic via polling `/api/match/try` every ~1.5s after enqueuing; RPC pairs oldest two users.
 
 ### Gotchas
@@ -61,5 +69,6 @@ Next.js 15 (App Router) + React 19 + Tailwind v4, with Supabase for Auth, DB, an
 - PostgreSQL doesn’t support `CREATE POLICY IF NOT EXISTS`; use `DROP POLICY IF EXISTS` then `CREATE POLICY` (already in schema).
 - RLS requires authenticated context; API routes use server client with cookies for user identity.
 - Never expose `SUPABASE_SERVICE_ROLE` to the browser; use only in server code.
+- Server components cannot use `next/dynamic({ ssr: false })`; put client logic in a `'use client'` component (e.g., `LogoutButton`).
 
 Questions or gaps? If you need additional conventions (testing, linting, component patterns), ask and we’ll capture them here.
