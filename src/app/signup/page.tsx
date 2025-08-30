@@ -32,12 +32,12 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto py-10 font-sans text-foreground">
-      <div className="bg-surface rounded-xl border border-primary/20 p-8 shadow-sm">
-        <h1 className="text-2xl font-bold mb-6 text-accent">회원가입</h1>
-        <form onSubmit={onSubmit} className="space-y-4">
+    <div className="max-w-md mx-auto py-6 sm:py-10 px-4 sm:px-6 font-sans text-foreground">
+      <div className="bg-surface rounded-lg sm:rounded-xl border border-primary/20 p-4 sm:p-6 lg:p-8 shadow-sm">
+        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-accent">회원가입</h1>
+        <form onSubmit={onSubmit} className="space-y-3 sm:space-y-4">
           <input
-            className="w-full border border-foreground/20 rounded-lg px-4 py-3 bg-background focus:border-primary focus:outline-none transition"
+            className="w-full border border-foreground/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-background focus:border-primary focus:outline-none transition text-sm sm:text-base"
             placeholder="이메일"
             type="email"
             required
@@ -45,7 +45,7 @@ export default function SignupPage() {
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
           <input
-            className="w-full border border-foreground/20 rounded-lg px-4 py-3 bg-background focus:border-primary focus:outline-none transition"
+            className="w-full border border-foreground/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-background focus:border-primary focus:outline-none transition text-sm sm:text-base"
             placeholder="비밀번호"
             type="password"
             required
@@ -53,15 +53,15 @@ export default function SignupPage() {
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
           <input
-            className="w-full border border-foreground/20 rounded-lg px-4 py-3 bg-background focus:border-primary focus:outline-none transition"
+            className="w-full border border-foreground/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-background focus:border-primary focus:outline-none transition text-sm sm:text-base"
             placeholder="닉네임"
             required
             value={form.nickname}
             onChange={(e) => setForm({ ...form, nickname: e.target.value })}
           />
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <select
-              className="flex-1 border border-foreground/20 rounded-lg px-4 py-3 bg-background focus:border-primary focus:outline-none transition"
+              className="flex-1 border border-foreground/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-background focus:border-primary focus:outline-none transition text-sm sm:text-base"
               value={form.gender}
               onChange={(e) => setForm({ ...form, gender: e.target.value })}
             >
@@ -71,7 +71,7 @@ export default function SignupPage() {
               <option value="other">기타/선택안함</option>
             </select>
             <select
-              className="flex-1 border border-foreground/20 rounded-lg px-4 py-3 bg-background focus:border-primary focus:outline-none transition"
+              className="flex-1 border border-foreground/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-background focus:border-primary focus:outline-none transition text-sm sm:text-base"
               value={form.age_group}
               onChange={(e) => setForm({ ...form, age_group: e.target.value })}
             >
@@ -85,14 +85,14 @@ export default function SignupPage() {
           </div>
           <button
             disabled={loading}
-            className="w-full bg-primary text-primary-foreground py-3 rounded-lg disabled:opacity-60 font-semibold hover:opacity-90 transition"
+            className="w-full bg-primary text-primary-foreground py-2.5 sm:py-3 rounded-lg disabled:opacity-60 font-semibold hover:opacity-90 transition text-sm sm:text-base"
           >
             {loading ? "가입 중..." : "가입하기"}
           </button>
         </form>
         {message && (
-          <div className="mt-4 p-3 rounded-lg bg-mint/10 border border-mint/20">
-            <p className="text-sm text-mint">{message}</p>
+          <div className="mt-3 sm:mt-4 p-3 rounded-lg bg-mint/10 border border-mint/20">
+            <p className="text-xs sm:text-sm text-mint">{message}</p>
           </div>
         )}
       </div>

@@ -63,37 +63,37 @@ function PaymentResultContent() {
 
   if (loading) {
     return (
-      <div className="max-w-2xl mx-auto py-20 text-center">
-        <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
-        <p className="text-lg">결제 정보를 확인하고 있습니다...</p>
+      <div className="max-w-2xl mx-auto py-12 sm:py-20 px-4 sm:px-6 text-center">
+        <div className="animate-spin w-6 sm:w-8 h-6 sm:h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-3 sm:mb-4"></div>
+        <p className="text-sm sm:text-lg">결제 정보를 확인하고 있습니다...</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto py-20 px-6 text-center">
+    <div className="max-w-2xl mx-auto py-12 sm:py-20 px-4 sm:px-6 text-center">
       <div
-        className={`w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center ${
+        className={`w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-4 sm:mb-6 rounded-full flex items-center justify-center ${
           success ? "bg-mint/20" : "bg-orange/20"
         }`}
       >
-        <span className="text-3xl">{success ? "✅" : "❌"}</span>
+        <span className="text-2xl sm:text-3xl">{success ? "✅" : "❌"}</span>
       </div>
 
       <h1
-        className={`text-2xl font-bold mb-4 ${
+        className={`text-xl sm:text-2xl font-bold mb-3 sm:mb-4 ${
           success ? "text-mint" : "text-orange"
         }`}
       >
         {success ? "결제 완료" : "결제 실패"}
       </h1>
 
-      <p className="text-foreground/80 mb-8">{message}</p>
+      <p className="text-sm sm:text-base text-foreground/80 mb-6 sm:mb-8">{message}</p>
 
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-3 max-w-sm mx-auto">
         <Link
           href="/me"
-          className="block px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:opacity-90 transition"
+          className="block px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-primary text-primary-foreground font-medium hover:opacity-90 transition text-sm sm:text-base"
         >
           마이페이지로 가기
         </Link>
@@ -101,7 +101,7 @@ function PaymentResultContent() {
         {!success && (
           <Link
             href="/charge"
-            className="block px-6 py-3 rounded-xl border border-accent/30 hover:bg-accent/10 transition"
+            className="block px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-accent/30 hover:bg-accent/10 transition text-sm sm:text-base"
           >
             다시 충전하기
           </Link>
@@ -115,9 +115,9 @@ export default function PaymentResultPage() {
   return (
     <Suspense
       fallback={
-        <div className="max-w-2xl mx-auto py-20 text-center">
-          <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-lg">페이지를 로딩하고 있습니다...</p>
+        <div className="max-w-2xl mx-auto py-12 sm:py-20 px-4 sm:px-6 text-center">
+          <div className="animate-spin w-6 sm:w-8 h-6 sm:h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-3 sm:mb-4"></div>
+          <p className="text-sm sm:text-lg">페이지를 로딩하고 있습니다...</p>
         </div>
       }
     >

@@ -45,30 +45,31 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider defaultTheme="light" storageKey="moisotalk-ui-theme">
-          <header className="px-6 sm:px-10 py-4 border-b border-accent/10 bg-surface">
+          <header className="px-4 sm:px-6 lg:px-10 py-3 sm:py-4 border-b border-accent/10 bg-surface">
             <div className="max-w-6xl mx-auto flex items-center justify-between">
               <Link
                 href="/"
-                className="font-semibold flex items-center gap-1 text-accent"
+                className="font-semibold flex items-center gap-1 sm:gap-2 text-accent"
               >
                 <Image
                   src="/logo_without_text.png"
                   alt="MoisoTalk"
-                  width={36}
-                  height={36}
-                  className="drop-shadow-sm"
+                  width={32}
+                  height={32}
+                  className="sm:w-9 sm:h-9 drop-shadow-sm"
                 />
-                <span className="text-lg">MoisoTalk</span>
+                <span className="text-base sm:text-lg">MoisoTalk</span>
               </Link>
-              <nav className="flex items-center gap-2 text-sm">
+              <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
                 <ThemeToggle />
                 {user ? (
                   <>
                     <Link
                       href="/me"
-                      className="px-4 py-2 rounded-xl border border-accent/30 hover:bg-accent/10 transition-all"
+                      className="px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border border-accent/30 hover:bg-accent/10 transition-all text-xs sm:text-sm"
                     >
-                      마이페이지
+                      <span className="hidden sm:inline">마이페이지</span>
+                      <span className="sm:hidden">마이</span>
                     </Link>
                     <LogoutButton />
                   </>
@@ -76,13 +77,13 @@ export default async function RootLayout({
                   <>
                     <Link
                       href="/login"
-                      className="px-4 py-2 rounded-xl border border-accent/30 hover:bg-accent/10 transition-all"
+                      className="px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border border-accent/30 hover:bg-accent/10 transition-all text-xs sm:text-sm"
                     >
                       로그인
                     </Link>
                     <Link
                       href="/signup"
-                      className="px-4 py-2 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-md"
+                      className="px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-md text-xs sm:text-sm"
                     >
                       회원가입
                     </Link>
@@ -92,8 +93,8 @@ export default async function RootLayout({
             </div>
           </header>
           {children}
-          <footer className="px-6 sm:px-10 py-10 bg-surface border-t border-accent/10 mt-10">
-            <div className="max-w-6xl mx-auto text-sm text-foreground/60">
+          <footer className="px-4 sm:px-6 lg:px-10 py-6 sm:py-10 bg-surface border-t border-accent/10 mt-8 sm:mt-10">
+            <div className="max-w-6xl mx-auto text-xs sm:text-sm text-foreground/60">
               © {new Date().getFullYear()} MoisoTalk
             </div>
           </footer>

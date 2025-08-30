@@ -62,6 +62,13 @@ drop policy if exists "waiting_pool_delete_self" on public.waiting_pool;
 create policy "waiting_pool_delete_self" on public.waiting_pool
   for delete using (auth.uid() = user_id);
 
+-- allow a user to update their own waiting_pool row (needed for UPSERT)
+drop policy if exists "waiting_pool_update_self" on public.waiting_pool;
+create policy "waiting_pool_update_self" on public.waiting_pool
+  for update
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
 create index if not exists waiting_pool_enqueued_idx on public.waiting_pool(enqueued_at);
 
 -- * 위까지 성공

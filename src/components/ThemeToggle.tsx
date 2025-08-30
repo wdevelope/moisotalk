@@ -20,11 +20,11 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="px-3 py-2 rounded-xl border border-accent/30 hover:bg-accent/10 transition-all flex items-center gap-2 text-sm shadow-sm"
+      className="px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border border-accent/30 hover:bg-accent/10 transition-all flex items-center gap-1 sm:gap-2 text-xs sm:text-sm shadow-sm"
       title={`현재: ${getLabel()} 모드 (클릭하여 변경)`}
     >
-      <span className="text-sm">{getIcon()}</span>
-      <span className="hidden sm:inline">{getLabel()}</span>
+      <span className="text-xs sm:text-sm">{getIcon()}</span>
+      <span className="hidden sm:inline text-xs sm:text-sm">{getLabel()}</span>
     </button>
   );
 }
