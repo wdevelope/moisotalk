@@ -8,7 +8,9 @@ export default function Home() {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image src="/globe.svg" alt="MoisoTalk" width={28} height={28} />
-            <span className="text-lg sm:text-xl font-semibold tracking-tight">MoisoTalk</span>
+            <span className="text-lg sm:text-xl font-semibold tracking-tight">
+              MoisoTalk
+            </span>
           </div>
           <nav className="flex items-center gap-3 sm:gap-4">
             <Link
@@ -36,7 +38,8 @@ export default function Home() {
             </h1>
             <p className="text-base sm:text-lg text-foreground/80 leading-relaxed">
               버튼 한 번으로 랜덤 매칭되고, 실시간으로 영어만 사용해 대화해요.
-              한국어 사용 시 포인트가 차감되고, 올-잉글리시로 마치면 보너스를 받아요.
+              한국어 사용 시 포인트가 차감되고, 올-잉글리시로 마치면 보너스를
+              받아요.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
@@ -50,6 +53,12 @@ export default function Home() {
                 className="px-5 py-3 rounded border border-foreground/20 text-sm sm:text-base hover:bg-foreground/10 transition text-center"
               >
                 이미 계정이 있어요
+              </Link>
+              <Link
+                href="/match"
+                className="px-5 py-3 rounded border border-foreground/20 text-sm sm:text-base hover:bg-foreground/10 transition text-center"
+              >
+                채팅 바로 시작
               </Link>
             </div>
           </div>
@@ -67,9 +76,15 @@ export default function Home() {
                   <p className="opacity-80">You: Seoul! Nice to meet you :)</p>
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-xs">
-                  <div className="rounded border border-foreground/15 p-2 text-center">Random Match</div>
-                  <div className="rounded border border-foreground/15 p-2 text-center">Points</div>
-                  <div className="rounded border border-foreground/15 p-2 text-center">English Only</div>
+                  <div className="rounded border border-foreground/15 p-2 text-center">
+                    Random Match
+                  </div>
+                  <div className="rounded border border-foreground/15 p-2 text-center">
+                    Points
+                  </div>
+                  <div className="rounded border border-foreground/15 p-2 text-center">
+                    English Only
+                  </div>
                 </div>
               </div>
             </div>
@@ -104,7 +119,15 @@ export default function Home() {
   );
 }
 
-function Feature({ icon, title, desc }: { icon: string; title: string; desc: string }) {
+function Feature({
+  icon,
+  title,
+  desc,
+}: {
+  icon: string;
+  title: string;
+  desc: string;
+}) {
   return (
     <div className="rounded-lg border border-foreground/15 p-5">
       <div className="flex items-center gap-2 mb-3">

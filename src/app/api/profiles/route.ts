@@ -9,7 +9,10 @@ export async function POST(req: NextRequest) {
   const { id, nickname, gender, age_group } = body || {};
 
   if (!id || !nickname) {
-    return NextResponse.json({ error: "id and nickname are required" }, { status: 400 });
+    return NextResponse.json(
+      { error: "id and nickname are required" },
+      { status: 400 }
+    );
   }
 
   // Ensure requester is the same as payload id

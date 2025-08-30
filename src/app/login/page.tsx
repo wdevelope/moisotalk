@@ -1,12 +1,12 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { getBrowserClient } from '@/lib/supabaseClient';
-import { ensurePendingProfile } from '@/lib/auth';
+"use client";
+import { useEffect, useState } from "react";
+import { getBrowserClient } from "@/lib/supabaseClient";
+import { ensurePendingProfile } from "@/lib/auth";
 
 export default function LoginPage() {
   const supabase = getBrowserClient();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -19,9 +19,12 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setMessage(null);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
     if (error) setMessage(error.message);
-    else setMessage('로그인 성공');
+    else setMessage("로그인 성공");
     setLoading(false);
     // Try to finalize pending profile after login
     ensurePendingProfile().catch(() => {});
@@ -31,7 +34,7 @@ export default function LoginPage() {
     setLoading(true);
     await supabase.auth.signOut();
     setLoading(false);
-    setMessage('로그아웃 되었습니다.');
+    setMessage("로그아웃 되었습니다.");
   }
 
   return (
@@ -58,7 +61,7 @@ export default function LoginPage() {
           disabled={loading}
           className="w-full bg-foreground text-background py-2 rounded disabled:opacity-60"
         >
-          {loading ? '로그인 중...' : '로그인'}
+          {loading ? "로그인 중..." : "로그인"}
         </button>
       </form>
 

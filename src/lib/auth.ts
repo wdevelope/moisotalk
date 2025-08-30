@@ -15,7 +15,10 @@ export async function signUpWithEmail(params: {
     password,
     options: {
       // Adjust redirect URL as needed for your deployment domain
-      emailRedirectTo: typeof window !== 'undefined' ? `${window.location.origin}/login` : undefined,
+      emailRedirectTo:
+        typeof window !== "undefined"
+          ? `${window.location.origin}/login`
+          : undefined,
     },
   });
   if (signUpError) throw signUpError;
@@ -35,36 +38,48 @@ export async function signUpWithEmail(params: {
     });
     if (res.ok) {
       const json = await res.json();
-      return { user: signUpData.user, profile: json.profile, needsEmailConfirmation: !signUpData.session } as const;
+      return {
+        user: signUpData.user,
+        profile: json.profile,
+        needsEmailConfirmation: !signUpData.session,
+      } as const;
     }
     const j = await res.json().catch(() => ({}));
     if (res.status === 401) {
       // store pending profile to finalize after first login
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         localStorage.setItem(
-          'pending_profile',
+          "pending_profile",
           JSON.stringify({ nickname, gender, age_group })
         );
       }
-      return { user: signUpData.user, profile: null, needsEmailConfirmation: true } as const;
+      return {
+        user: signUpData.user,
+        profile: null,
+        needsEmailConfirmation: true,
+      } as const;
     }
     throw new Error(j.error || "Failed to create profile");
   } catch (e) {
     // network or other errors; still store pending data if session is missing
-    if (!signUpData.session && typeof window !== 'undefined') {
+    if (!signUpData.session && typeof window !== "undefined") {
       localStorage.setItem(
-        'pending_profile',
+        "pending_profile",
         JSON.stringify({ nickname, gender, age_group })
       );
-      return { user: signUpData.user, profile: null, needsEmailConfirmation: true } as const;
+      return {
+        user: signUpData.user,
+        profile: null,
+        needsEmailConfirmation: true,
+      } as const;
     }
     throw e;
   }
 }
 
 export async function ensurePendingProfile() {
-  if (typeof window === 'undefined') return null;
-  const raw = localStorage.getItem('pending_profile');
+  if (typeof window === "undefined") return null;
+  const raw = localStorage.getItem("pending_profile");
   if (!raw) return null;
   const supabase = getBrowserClient();
   const { data: userData } = await supabase.auth.getUser();
@@ -78,7 +93,7 @@ export async function ensurePendingProfile() {
       body: JSON.stringify({ id: user.id, nickname, gender, age_group }),
     });
     if (res.ok) {
-      localStorage.removeItem('pending_profile');
+      localStorage.removeItem("pending_profile");
       const json = await res.json();
       return json.profile;
     }
