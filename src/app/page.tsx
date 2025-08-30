@@ -23,7 +23,7 @@ export default function Home() {
             <p className="text-base sm:text-lg text-foreground/80 leading-relaxed">
               버튼 한 번으로 랜덤 매칭되고, 실시간으로 영어만 사용해 대화해요.
               한국어 사용 시 포인트가 차감되고, 올-잉글리시로 마치면 보너스를
-              받아요.
+              받아요. 포인트는 언제든 충전할 수 있습니다!
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
@@ -93,7 +93,7 @@ export default function Home() {
           <Feature
             icon="🎯"
             title="포인트 규칙"
-            desc="한국어 사용 시 -1, 올-잉글리시 완료 시 +2 보너스!"
+            desc="한국어 사용 시 -1, 올-잉글리시 완료 시 +2 보너스! 포인트 부족 시 언제든 충전 가능해요."
             color="orange"
           />
         </section>

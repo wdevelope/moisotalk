@@ -1,4 +1,5 @@
 import { getServerClient } from "@/lib/server/supabase";
+import Link from "next/link";
 
 export default async function MePage() {
   const supabase = await getServerClient();
@@ -39,9 +40,17 @@ export default async function MePage() {
           </div>
           <div className="flex gap-2">
             <span className="w-28 text-foreground/60 font-medium">포인트</span>
-            <span className="text-primary font-semibold text-lg">
-              {profile?.points ?? 0}
-            </span>
+            <div className="flex items-center gap-3">
+              <span className="text-primary font-semibold text-lg">
+                {profile?.points ?? 0}P
+              </span>
+              <Link
+                href="/charge"
+                className="px-3 py-1 rounded-lg bg-primary text-primary-foreground text-xs font-medium hover:opacity-90 transition"
+              >
+                충전
+              </Link>
+            </div>
           </div>
         </div>
       </div>
