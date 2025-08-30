@@ -9,12 +9,13 @@ export default function Home() {
           <div className="space-y-6">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
               <span className="text-accent">무작위 영어 채팅으로 배우는</span>
-              <span className="block flex items-center gap-2 text-primary">
+              <span className="block flex items-center gap-3 text-primary">
                 <Image
                   src="/logo_without_text.png"
                   alt="MoisoTalk 로고"
-                  width={40}
-                  height={40}
+                  width={56}
+                  height={56}
+                  className="drop-shadow-lg"
                 />
                 MoisoTalk
               </span>

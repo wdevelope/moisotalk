@@ -44,15 +44,16 @@ export default async function RootLayout({
             <div className="max-w-6xl mx-auto flex items-center justify-between">
               <Link
                 href="/"
-                className="font-semibold flex items-center gap-2 text-accent"
+                className="font-semibold flex items-center gap-3 text-accent"
               >
                 <Image
                   src="/logo_without_text.png"
                   alt="MoisoTalk"
-                  width={28}
-                  height={28}
+                  width={36}
+                  height={36}
+                  className="drop-shadow-sm"
                 />
-                <span>MoisoTalk</span>
+                <span className="text-lg">MoisoTalk</span>
               </Link>
               <nav className="flex items-center gap-3 sm:gap-4 text-sm">
                 <ThemeToggle />
