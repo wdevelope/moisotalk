@@ -6,35 +6,15 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else if (theme === "dark") {
-      setTheme("system");
-    } else {
-      setTheme("light");
-    }
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
   const getIcon = () => {
-    switch (theme) {
-      case "light":
-        return "☀️";
-      case "dark":
-        return "🌙";
-      default:
-        return "💻";
-    }
+    return theme === "light" ? "☀️" : "🌙";
   };
 
   const getLabel = () => {
-    switch (theme) {
-      case "light":
-        return "라이트";
-      case "dark":
-        return "다크";
-      default:
-        return "시스템";
-    }
+    return theme === "light" ? "라이트" : "다크";
   };
 
   return (

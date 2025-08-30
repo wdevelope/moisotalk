@@ -52,7 +52,7 @@ Next.js 15 (App Router) + React 19 + Tailwind v4, with Supabase for Auth, DB, an
   - Color usage: `bg-background text-foreground`, `bg-primary text-primary-foreground`, `text-accent`, `bg-surface`, `text-mint`, `text-purple`, `text-orange`.
 - Theme system: Light/dark mode toggle with system preference detection
   - `ThemeProvider` context in `src/components/ThemeProvider.tsx` manages theme state
-  - `ThemeToggle` component in header cycles between light/dark/system modes
+  - `ThemeToggle` component in header toggles between light/dark modes (☀️🌙 icons)
   - Dark mode colors: darker backgrounds (#0f1419), lighter accent (#4a90e2), adjusted secondary colors
   - CSS classes `.light` and `.dark` on `<html>` element control theme application
 - Design system: Card-based layouts with `rounded-xl`, `border-primary/20`, surface backgrounds. Focus states with `focus:border-primary`. Hover transitions.

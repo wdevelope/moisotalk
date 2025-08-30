@@ -40,7 +40,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
-          defaultTheme="system"
+          defaultTheme="light"
           storageKey="moisotalk-ui-theme"
         >
           <header className="px-6 sm:px-10 py-4 border-b border-accent/10 bg-surface">
