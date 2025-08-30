@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import { getBrowserClient } from "@/lib/supabaseClient";
 import { ensurePendingProfile } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
   const supabase = getBrowserClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +26,10 @@ export default function LoginPage() {
       password,
     });
     if (error) setMessage(error.message);
-    else setMessage("로그인 성공");
+      else {
+        setMessage("로그인 성공");
+        router.push("/chat");
+      }
     setLoading(false);
     // Try to finalize pending profile after login
     ensurePendingProfile().catch(() => {});

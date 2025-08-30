@@ -161,3 +161,18 @@ end;
 $$;
 
 grant execute on function public.find_or_create_match(uuid) to authenticated;
+
+-- Utility: check if a room has any Korean characters in messages
+create or replace function public.room_has_korean(p_room uuid)
+returns boolean
+language sql
+stable
+as $$
+  select exists (
+    select 1 from public.messages
+    where room_id = p_room
+      and content ~ '[가-힣]'
+  );
+$$;
+
+grant execute on function public.room_has_korean(uuid) to authenticated;
