@@ -1,55 +1,57 @@
 ## AI coding guide for this repo (moisotalk)
 
-This is a minimal Next.js 15 (App Router) app using React 19 and Tailwind CSS v4, built/run with Turbopack.
+Next.js 15 (App Router) + React 19 + Tailwind v4, with Supabase for Auth, DB, and Realtime. Turbopack drives dev/build.
 
-### Architecture and layout
+### Architecture
+- App Router under `src/app/`.
+  - `src/app/page.tsx`: MoisoTalk home with hero + CTAs to `/signup`, `/login`, `/match`.
+  - `src/app/signup/page.tsx`, `src/app/login/page.tsx`: email/password auth UI.
+  - `src/app/match/page.tsx`: enqueue user and poll for a match.
+  - `src/app/chat/[roomId]/page.tsx`: realtime chat via Supabase channels.
+- Supabase clients
+  - Browser: `src/lib/supabaseClient.ts` (uses `@supabase/ssr` createBrowserClient).
+  - Server: `src/lib/server/supabase.ts` (uses `@supabase/ssr` createServerClient with cookie auth).
+  - Service (server-only): `src/lib/server/supabaseService.ts` for privileged ops (not exposed to client).
+- DB schema: `supabase/schema.sql` (tables, RLS policies, indices, matching RPC).
+- Static assets in `public/` (use with `next/image` as `/file.svg`).
 
-- App Router lives under `src/app/`.
-  - `src/app/layout.tsx` defines root HTML, loads Geist fonts via `next/font`, sets CSS variables on `<body>`, and exports `metadata`.
-  - `src/app/page.tsx` is the home route; uses `next/image` and Tailwind utility classes.
-- Static assets are in `public/` (e.g., `public/next.svg`, `public/file.svg`). Reference them with `/asset.svg` in `next/image`.
-- Tailwind v4 is enabled via PostCSS (`postcss.config.mjs` uses `@tailwindcss/postcss`) and a single import in `src/app/globals.css`.
-- TypeScript is strict; path alias `@/*` maps to `./src/*` (see `tsconfig.json`).
+### Data model (see `supabase/schema.sql`)
+- `profiles(id, nickname, gender, age_group, points, created_at)` linked to `auth.users`.
+- `chat_rooms(id, created_at, is_active)` and `chat_participants(room_id, user_id, joined_at)`.
+- `messages(id, room_id, sender_id, content, created_at)`; index on `(room_id, created_at desc)`.
+- `waiting_pool(user_id, enqueued_at)`; used for random matching.
+- Policies: RLS enabled; self-only inserts/updates where appropriate; messages readable by room participants.
+- RPC: `find_or_create_match(p_user uuid)` pairs two queued users, creates room + participants, and returns `room id`.
 
-### Build, run, debug
+### API surface (Next route handlers)
+- `POST /api/profiles` — create profile for the authenticated user (called after sign-up or first login).
+- `POST /api/match/start` — upsert into `waiting_pool` for current user.
+- `POST /api/match/try` — calls RPC to return `{ roomId }` if matched.
+- `POST /api/match/cancel` — remove current user from `waiting_pool`.
 
-- Dev server: `pnpm dev` (Next + Turbopack) at http://localhost:3000 with HMR.
-- Production build: `pnpm build` (Turbopack) then `pnpm start`.
-- Type-checking runs via TS config (`noEmit: true`). There is no ESLint config in this repo.
+### Auth flows
+- Sign-up: `signUpWithEmail` in `src/lib/auth.ts` calls Supabase Auth; then `/api/profiles` to insert into `profiles`.
+- If email confirmation is required (no session), we stash pending profile in `localStorage` and finalize on first login via `ensurePendingProfile`.
+- Client vs Server: server components by default; add `'use client'` for stateful/interactive pages.
 
-### Project conventions and patterns
+### Styling & conventions
+- Tailwind v4 tokens from `src/app/globals.css` via `@theme inline`:
+  - Fonts wired from `next/font` (`--font-sans`, `--font-mono`); use `font-sans`, `font-mono`.
+  - Colors via CSS vars: `bg-background text-foreground`.
+- Fonts loaded in `src/app/layout.tsx` (Geist, Geist_Mono) and applied on `<body>`.
+- Path alias `@/*` → `./src/*` (see `tsconfig.json`).
 
-- Fonts: `next/font/google` loads Geist; `layout.tsx` applies `className="${geistSans.variable} ${geistMono.variable} antialiased"` on `<body>`. If you add fonts, follow this pattern and expose CSS variables for Tailwind to consume.
-- Tailwind theming: `src/app/globals.css` defines tokens with `@theme inline` mapping CSS variables:
-  - `--font-sans` and `--font-mono` are connected to the `next/font` variables.
-  - Color tokens: `--color-background`, `--color-foreground`; dark mode via `prefers-color-scheme: dark`.
-  - Use utilities like `font-sans`, `font-mono`, and `bg-background text-foreground` in components.
-- Images: prefer `next/image` for local files in `public/` and remote if configured.
-- Routing: create routes as folders under `src/app/<route>/page.tsx`. Layouts per route are `src/app/<route>/layout.tsx`.
-- Client vs server components: components are server by default. Add `'use client'` at the top of files needing state, effects, or event handlers.
-- Imports: prefer the `@/*` alias, e.g., `import X from "@/app/page"` or `@/lib/foo` once such modules exist.
+### Build & run
+- Dev: `pnpm dev` (http://localhost:3000), Build: `pnpm build`, Start: `pnpm start`.
+- Env (`.env.local`): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE` (server-only).
 
-### Examples from this codebase
+### Realtime & matching notes
+- Enable Realtime on `public.messages` in Supabase if not already; UI subscribes to `postgres_changes` INSERT for the room.
+- Matching is optimistic via polling `/api/match/try` every ~1.5s after enqueuing; RPC pairs oldest two users.
 
-- Root layout font wiring: see `src/app/layout.tsx` using `Geist` and `Geist_Mono` and applying their `.variable` classes.
-- Tailwind tokens in use: `src/app/page.tsx` uses `font-sans` and `font-mono` classes; colors derive from `globals.css` tokens.
-- Image usage: `src/app/page.tsx` imports `next/image` and references `/next.svg` from `public/`.
+### Gotchas
+- PostgreSQL doesn’t support `CREATE POLICY IF NOT EXISTS`; use `DROP POLICY IF EXISTS` then `CREATE POLICY` (already in schema).
+- RLS requires authenticated context; API routes use server client with cookies for user identity.
+- Never expose `SUPABASE_SERVICE_ROLE` to the browser; use only in server code.
 
-### Adding a new page quickly
-
-1. Create `src/app/about/page.tsx` exporting a React component (server by default).
-2. Style with Tailwind using the existing theme tokens, e.g., `className="font-sans bg-background text-foreground p-6"`.
-3. For interactivity (click handlers, state), add `'use client'` to the top of the file or move interactive parts into a client component.
-
-### Integration points
-
-- Next.js configuration is minimal (`next.config.ts`); no custom rewrites or images domains are declared yet.
-- PostCSS pipeline: `@tailwindcss/postcss` only. Tailwind config file is not present; rely on v4 defaults and `@theme` tokens in CSS.
-
-### Gotchas and tips
-
-- When changing `globals.css` theme tokens, use the defined CSS variable names to keep Tailwind tokens (`bg-background`, `text-foreground`, etc.) working.
-- Turbopack is used for both dev and build; if you hit an unsupported plugin/loader scenario, consider removing `--turbopack` in scripts locally to compare behavior.
-- Keep routes and assets under `src/app/` and `public/` respectively; avoid placing page files outside `src/app/`.
-
-If anything here is unclear or you want me to capture more conventions (e.g., preferred file/folder naming, testing setup), tell me and I’ll update this guide.
+Questions or gaps? If you need additional conventions (testing, linting, component patterns), ask and we’ll capture them here.
