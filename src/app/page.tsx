@@ -3,14 +3,21 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-  <div className="font-sans bg-background text-foreground min-h-screen">
-
+    <div className="font-sans bg-background text-foreground min-h-screen">
       <main className="px-6 sm:px-10">
         <section className="max-w-6xl mx-auto py-12 sm:py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="space-y-6">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
               무작위 영어 채팅으로 배우는
-              <span className="block">MoisoTalk</span>
+              <span className="block flex items-center gap-2">
+                <Image
+                  src="/logo.png"
+                  alt="MoisoTalk 로고"
+                  width={40}
+                  height={40}
+                />
+                MoisoTalk
+              </span>
             </h1>
             <p className="text-base sm:text-lg text-foreground/80 leading-relaxed">
               버튼 한 번으로 랜덤 매칭되고, 실시간으로 영어만 사용해 대화해요.
@@ -86,7 +93,7 @@ export default function Home() {
         </section>
       </main>
 
-  <footer className="px-6 sm:px-10 py-10">
+      <footer className="px-6 sm:px-10 py-10">
         <div className="max-w-6xl mx-auto text-sm text-foreground/60">
           © {new Date().getFullYear()} MoisoTalk
         </div>

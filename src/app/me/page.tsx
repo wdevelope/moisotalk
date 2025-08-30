@@ -24,10 +24,22 @@ export default async function MePage() {
     <div className="max-w-3xl mx-auto p-6 space-y-4">
       <h1 className="text-xl font-semibold">마이페이지</h1>
       <div className="rounded border border-foreground/15 p-4 text-sm">
-        <div className="flex gap-2"><span className="w-28 text-foreground/60">닉네임</span><span>{profile?.nickname ?? '-'}</span></div>
-        <div className="flex gap-2"><span className="w-28 text-foreground/60">성별</span><span>{profile?.gender ?? '-'}</span></div>
-        <div className="flex gap-2"><span className="w-28 text-foreground/60">나이대</span><span>{profile?.age_group ?? '-'}</span></div>
-        <div className="flex gap-2"><span className="w-28 text-foreground/60">포인트</span><span>{profile?.points ?? 0}</span></div>
+        <div className="flex gap-2">
+          <span className="w-28 text-foreground/60">닉네임</span>
+          <span>{profile?.nickname ?? "-"}</span>
+        </div>
+        <div className="flex gap-2">
+          <span className="w-28 text-foreground/60">성별</span>
+          <span>{profile?.gender ?? "-"}</span>
+        </div>
+        <div className="flex gap-2">
+          <span className="w-28 text-foreground/60">나이대</span>
+          <span>{profile?.age_group ?? "-"}</span>
+        </div>
+        <div className="flex gap-2">
+          <span className="w-28 text-foreground/60">포인트</span>
+          <span>{profile?.points ?? 0}</span>
+        </div>
       </div>
     </div>
   );

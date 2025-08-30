@@ -59,18 +59,28 @@ export default function SignupPage() {
           onChange={(e) => setForm({ ...form, nickname: e.target.value })}
         />
         <div className="flex gap-3">
-          <input
+          <select
             className="flex-1 border rounded px-3 py-2 bg-background"
-            placeholder="성별(선택)"
             value={form.gender}
             onChange={(e) => setForm({ ...form, gender: e.target.value })}
-          />
-          <input
+          >
+            <option value="">성별(선택)</option>
+            <option value="male">남성</option>
+            <option value="female">여성</option>
+            <option value="other">기타/선택안함</option>
+          </select>
+          <select
             className="flex-1 border rounded px-3 py-2 bg-background"
-            placeholder="나이대(선택)"
             value={form.age_group}
             onChange={(e) => setForm({ ...form, age_group: e.target.value })}
-          />
+          >
+            <option value="">나이대(선택)</option>
+            <option value="teens">10대</option>
+            <option value="20s">20대</option>
+            <option value="30s">30대</option>
+            <option value="40s">40대</option>
+            <option value="50s+">50대 이상</option>
+          </select>
         </div>
         <button
           disabled={loading}
