@@ -146,7 +146,7 @@ export default function ChatRoomPage() {
     <div className="max-w-3xl mx-auto py-6 h-[calc(100vh-80px)] flex flex-col">
       <div
         ref={listRef}
-        className="flex-1 overflow-y-auto rounded border border-foreground/15 p-4 space-y-3 bg-background"
+        className="flex-1 overflow-y-auto rounded border border-foreground/15 p-4 space-y-3 bg-surface"
       >
         {messages.map((m) => (
           <div key={m.id} className="text-sm">
@@ -159,7 +159,7 @@ export default function ChatRoomPage() {
       </div>
       <div className="mt-4 flex gap-2 items-center">
         <input
-          className="flex-1 border rounded px-3 py-2 bg-background"
+          className="flex-1 border rounded px-3 py-2 bg-background focus:border-accent/40 focus:outline-none"
           placeholder="메시지를 입력하세요"
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -170,14 +170,14 @@ export default function ChatRoomPage() {
         />
         <button
           onClick={send}
-          className="px-4 py-2 rounded bg-foreground text-background disabled:opacity-50"
+          className="px-4 py-2 rounded bg-primary text-primary-foreground disabled:opacity-50"
           disabled={sending || (points !== null && points <= 0)}
         >
           전송
         </button>
         <button
           onClick={endChat}
-          className="px-3 py-2 rounded border border-foreground/20"
+          className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10"
         >
           종료
         </button>

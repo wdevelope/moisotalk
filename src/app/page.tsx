@@ -24,29 +24,29 @@ export default function Home() {
               한국어 사용 시 포인트가 차감되고, 올-잉글리시로 마치면 보너스를
               받아요.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/signup"
-                className="px-5 py-3 rounded bg-foreground text-background text-sm sm:text-base font-medium hover:opacity-90 transition text-center"
+        className="px-5 py-3 rounded bg-primary text-primary-foreground text-sm sm:text-base font-medium hover:opacity-90 transition text-center"
               >
                 지금 시작하기
               </Link>
               <Link
                 href="/login"
-                className="px-5 py-3 rounded border border-foreground/20 text-sm sm:text-base hover:bg-foreground/10 transition text-center"
+        className="px-5 py-3 rounded border border-accent/30 text-sm sm:text-base hover:bg-accent/10 transition text-center"
               >
                 이미 계정이 있어요
               </Link>
               <Link
                 href="/match"
-                className="px-5 py-3 rounded border border-foreground/20 text-sm sm:text-base hover:bg-foreground/10 transition text-center"
+        className="px-5 py-3 rounded border border-accent/30 text-sm sm:text-base hover:bg-accent/10 transition text-center"
               >
                 채팅 바로 시작
               </Link>
             </div>
           </div>
           <div className="flex justify-center md:justify-end">
-            <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-xl border border-foreground/15 overflow-hidden">
+      <div className="relative w-full max-w-[420px] aspect-[4/3] rounded-xl border border-foreground/15 overflow-hidden bg-surface">
               <div className="absolute inset-0 bg-gradient-to-br from-foreground/10 to-transparent" />
               <div className="absolute inset-0 p-6 flex flex-col gap-4">
                 <div className="flex items-center gap-2 text-sm">
@@ -112,10 +112,10 @@ function Feature({
   desc: string;
 }) {
   return (
-    <div className="rounded-lg border border-foreground/15 p-5">
+  <div className="rounded-lg border border-foreground/15 p-5 bg-surface">
       <div className="flex items-center gap-2 mb-3">
         <Image src={icon} alt="" width={18} height={18} aria-hidden />
-        <h3 className="font-semibold">{title}</h3>
+    <h3 className="font-semibold text-accent">{title}</h3>
       </div>
       <p className="text-sm text-foreground/80">{desc}</p>
     </div>

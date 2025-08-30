@@ -49,24 +49,24 @@ export default function MatchPage() {
       <p className="text-sm text-foreground/80 mb-6">
         대기열에 등록하면 다른 사용자와 무작위로 매칭됩니다.
       </p>
-      <div className="flex gap-3">
+  <div className="flex gap-3">
         <button
           onClick={start}
           disabled={waiting}
-          className="px-4 py-2 rounded bg-foreground text-background disabled:opacity-60"
+      className="px-4 py-2 rounded bg-primary text-primary-foreground disabled:opacity-60"
         >
           {waiting ? "대기 중..." : "채팅 시작"}
         </button>
         {waiting && (
           <button
             onClick={cancel}
-            className="px-4 py-2 rounded border border-foreground/20"
+    className="px-4 py-2 rounded border border-accent/30 hover:bg-accent/10"
           >
             취소
           </button>
         )}
       </div>
-      {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
+  {error && <p className="mt-4 text-sm text-orange-600">{error}</p>}
     </div>
   );
 }

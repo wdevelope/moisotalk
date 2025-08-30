@@ -44,11 +44,11 @@ export default async function RootLayout({
               <span>MoisoTalk</span>
             </Link>
             <nav className="flex items-center gap-3 sm:gap-4 text-sm">
-              {user ? (
+      {user ? (
                 <>
                   <Link
                     href="/me"
-                    className="px-3 py-2 rounded border border-foreground/20 hover:bg-foreground/10 transition"
+        className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10 transition"
                   >
                     마이페이지
                   </Link>
@@ -58,13 +58,13 @@ export default async function RootLayout({
                 <>
                   <Link
                     href="/login"
-                    className="px-3 py-2 rounded border border-foreground/20 hover:bg-foreground/10 transition"
+        className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10 transition"
                   >
                     로그인
                   </Link>
                   <Link
                     href="/signup"
-                    className="px-4 py-2 rounded bg-foreground text-background hover:opacity-90 transition"
+        className="px-4 py-2 rounded bg-primary text-primary-foreground hover:opacity-90 transition"
                   >
                     회원가입
                   </Link>
