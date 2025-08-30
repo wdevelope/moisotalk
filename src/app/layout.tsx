@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { getServerClient } from "@/lib/server/supabase";
 import LogoutButton from "@/components/LogoutButton";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,55 +35,61 @@ export default async function RootLayout({
   } = await supabase.auth.getUser();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="px-6 sm:px-10 py-4 border-b border-accent/10 bg-surface">
-          <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <Link
-              href="/"
-              className="font-semibold flex items-center gap-2 text-accent"
-            >
-              <Image src="/logo.png" alt="MoisoTalk" width={28} height={28} />
-              <span>MoisoTalk</span>
-            </Link>
-            <nav className="flex items-center gap-3 sm:gap-4 text-sm">
-              {user ? (
-                <>
-                  <Link
-                    href="/me"
-                    className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10 transition"
-                  >
-                    마이페이지
-                  </Link>
-                  <LogoutButton />
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/login"
-                    className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10 transition"
-                  >
-                    로그인
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="px-4 py-2 rounded bg-primary text-primary-foreground hover:opacity-90 transition"
-                  >
-                    회원가입
-                  </Link>
-                </>
-              )}
-            </nav>
-          </div>
-        </header>
-        {children}
-        <footer className="px-6 sm:px-10 py-10 bg-surface border-t border-accent/10 mt-10">
-          <div className="max-w-6xl mx-auto text-sm text-foreground/60">
-            © {new Date().getFullYear()} MoisoTalk
-          </div>
-        </footer>
+        <ThemeProvider
+          defaultTheme="system"
+          storageKey="moisotalk-ui-theme"
+        >
+          <header className="px-6 sm:px-10 py-4 border-b border-accent/10 bg-surface">
+            <div className="max-w-6xl mx-auto flex items-center justify-between">
+              <Link
+                href="/"
+                className="font-semibold flex items-center gap-2 text-accent"
+              >
+                <Image src="/logo.png" alt="MoisoTalk" width={28} height={28} />
+                <span>MoisoTalk</span>
+              </Link>
+              <nav className="flex items-center gap-3 sm:gap-4 text-sm">
+                <ThemeToggle />
+                {user ? (
+                  <>
+                    <Link
+                      href="/me"
+                      className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10 transition"
+                    >
+                      마이페이지
+                    </Link>
+                    <LogoutButton />
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      className="px-3 py-2 rounded border border-accent/30 hover:bg-accent/10 transition"
+                    >
+                      로그인
+                    </Link>
+                    <Link
+                      href="/signup"
+                      className="px-4 py-2 rounded bg-primary text-primary-foreground hover:opacity-90 transition"
+                    >
+                      회원가입
+                    </Link>
+                  </>
+                )}
+              </nav>
+            </div>
+          </header>
+          {children}
+          <footer className="px-6 sm:px-10 py-10 bg-surface border-t border-accent/10 mt-10">
+            <div className="max-w-6xl mx-auto text-sm text-foreground/60">
+              © {new Date().getFullYear()} MoisoTalk
+            </div>
+          </footer>
+        </ThemeProvider>
       </body>
     </html>
   );

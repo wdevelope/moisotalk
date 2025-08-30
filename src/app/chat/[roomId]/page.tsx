@@ -150,7 +150,7 @@ export default function ChatRoomPage() {
       >
         {messages.length === 0 ? (
           <div className="h-full flex items-center justify-center">
-            <div className="text-center p-6 rounded-xl bg-background/80 border border-primary/10">
+            <div className="text-center p-6 rounded-xl bg-background/80 border border-primary/10 backdrop-blur-sm">
               <div className="text-purple text-lg font-semibold mb-2">환영합니다! 🎯</div>
               <p className="text-foreground/70 text-sm">
                 영어로 대화해보세요. 한국어 사용 시 포인트가 차감됩니다.
@@ -159,11 +159,11 @@ export default function ChatRoomPage() {
           </div>
         ) : (
           messages.map((m) => (
-            <div key={m.id} className="text-sm p-3 rounded-lg bg-background/80 border border-primary/10">
+            <div key={m.id} className="text-sm p-3 rounded-lg bg-background/80 border border-primary/10 backdrop-blur-sm shadow-sm">
               <span className="font-mono text-primary/80 mr-2 font-medium">
                 {m.sender_id.slice(0, 6)}
               </span>
-              <span>{m.content}</span>
+              <span className="text-foreground">{m.content}</span>
             </div>
           ))
         )}
