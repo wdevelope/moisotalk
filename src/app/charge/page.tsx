@@ -104,9 +104,13 @@ export default function ChargePage() {
   return (
     <div className="max-w-4xl mx-auto py-6 sm:py-8 px-4 sm:px-6">
       <div className="text-center mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-accent mb-3 sm:mb-4">포인트 충전</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-accent mb-3 sm:mb-4">
+          포인트 충전
+        </h1>
         <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl bg-surface border border-primary/20">
-          <span className="text-xs sm:text-sm text-foreground/70">현재 보유 포인트:</span>
+          <span className="text-xs sm:text-sm text-foreground/70">
+            현재 보유 포인트:
+          </span>
           <span className="text-base sm:text-lg font-semibold text-primary">
             {currentPoints.toLocaleString()}P
           </span>
@@ -156,7 +160,9 @@ export default function ChargePage() {
 
       {selectedPackage && (
         <div className="bg-surface rounded-lg sm:rounded-xl p-4 sm:p-6 border border-primary/20 mb-4 sm:mb-6">
-          <h3 className="text-base sm:text-lg font-semibold text-accent mb-3 sm:mb-4">결제 정보</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-accent mb-3 sm:mb-4">
+            결제 정보
+          </h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-foreground/70">상품:</span>

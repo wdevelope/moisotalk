@@ -8,7 +8,9 @@ export default function Home() {
         <section className="max-w-6xl mx-auto py-8 sm:py-12 lg:py-20 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
           <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight">
-              <span className="text-accent block sm:inline">무작위 영어 채팅으로 배우는</span>
+              <span className="text-accent block sm:inline">
+                무작위 영어 채팅으로 배우는
+              </span>
               <span className="block flex items-center justify-center lg:justify-start gap-2 text-primary mt-1 sm:mt-0">
                 <Image
                   src="/logo_without_text.png"
@@ -57,8 +59,12 @@ export default function Home() {
                   </span>
                 </div>
                 <div className="flex-1 rounded-lg border border-primary/15 p-2 sm:p-3 text-xs sm:text-sm bg-background/80">
-                  <p className="opacity-80 mb-1">You: Hi! Where are you from?</p>
-                  <p className="opacity-80 mb-1">Partner: I'm from Toronto. You?</p>
+                  <p className="opacity-80 mb-1">
+                    You: Hi! Where are you from?
+                  </p>
+                  <p className="opacity-80 mb-1">
+                    Partner: I'm from Toronto. You?
+                  </p>
                   <p className="opacity-80">You: Seoul! Nice to meet you :)</p>
                 </div>
                 <div className="grid grid-cols-3 gap-2 sm:gap-3 text-xs">
@@ -122,12 +128,16 @@ function Feature({
   };
 
   return (
-    <div className={`rounded-lg sm:rounded-xl border p-3 sm:p-4 lg:p-6 ${colorClasses[color]}`}>
+    <div
+      className={`rounded-lg sm:rounded-xl border p-3 sm:p-4 lg:p-6 ${colorClasses[color]}`}
+    >
       <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
         <span className="text-xl sm:text-2xl" aria-hidden>
           {icon}
         </span>
-        <h3 className="font-semibold text-accent text-sm sm:text-base">{title}</h3>
+        <h3 className="font-semibold text-accent text-sm sm:text-base">
+          {title}
+        </h3>
       </div>
       <p className="text-xs sm:text-sm text-foreground/80">{desc}</p>
     </div>

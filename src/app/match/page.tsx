@@ -46,7 +46,9 @@ export default function MatchPage() {
   return (
     <div className="max-w-lg mx-auto py-6 sm:py-10 px-4 sm:px-6 font-sans text-foreground">
       <div className="bg-surface rounded-lg sm:rounded-xl border border-primary/20 p-4 sm:p-6 lg:p-8 shadow-sm">
-        <h1 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-accent">랜덤 매칭</h1>
+        <h1 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-accent">
+          랜덤 매칭
+        </h1>
         <p className="text-xs sm:text-sm text-foreground/80 mb-4 sm:mb-6">
           대기열에 등록하면 다른 사용자와 무작위로 매칭됩니다.
         </p>

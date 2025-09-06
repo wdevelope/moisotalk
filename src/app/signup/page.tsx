@@ -34,7 +34,9 @@ export default function SignupPage() {
   return (
     <div className="max-w-md mx-auto py-6 sm:py-10 px-4 sm:px-6 font-sans text-foreground">
       <div className="bg-surface rounded-lg sm:rounded-xl border border-primary/20 p-4 sm:p-6 lg:p-8 shadow-sm">
-        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-accent">회원가입</h1>
+        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-accent">
+          회원가입
+        </h1>
         <form onSubmit={onSubmit} className="space-y-3 sm:space-y-4">
           <input
             className="w-full border border-foreground/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-background focus:border-primary focus:outline-none transition text-sm sm:text-base"

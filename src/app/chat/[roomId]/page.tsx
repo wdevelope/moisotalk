@@ -200,9 +200,7 @@ export default function ChatRoomPage() {
           </button>
           {points !== null && (
             <div className="px-2 sm:px-3 py-2 rounded-lg bg-mint/10 border border-mint/20 flex items-center">
-              <span className="text-xs text-mint font-medium">
-                {points}P
-              </span>
+              <span className="text-xs text-mint font-medium">{points}P</span>
             </div>
           )}
         </div>

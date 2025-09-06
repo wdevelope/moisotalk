@@ -88,7 +88,9 @@ function PaymentResultContent() {
         {success ? "결제 완료" : "결제 실패"}
       </h1>
 
-      <p className="text-sm sm:text-base text-foreground/80 mb-6 sm:mb-8">{message}</p>
+      <p className="text-sm sm:text-base text-foreground/80 mb-6 sm:mb-8">
+        {message}
+      </p>
 
       <div className="space-y-2 sm:space-y-3 max-w-sm mx-auto">
         <Link
