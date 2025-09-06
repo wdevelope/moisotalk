@@ -104,7 +104,7 @@ export default function MatchPage() {
               <span className="text-3xl md:text-4xl">💕</span>
             </div>
             <h1 className="text-2xl md:text-3xl 2xl:text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
-              English Speed Dating (Beta)
+              English Speed Dating
             </h1>
             <p className="text-sm md:text-base text-foreground/70">
               매칭까지 시간이 걸릴 수 있어요 ⏳

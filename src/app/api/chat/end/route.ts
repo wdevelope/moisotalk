@@ -39,8 +39,14 @@ export async function POST(req: NextRequest) {
   if (rpcErr)
     return NextResponse.json({ error: rpcErr.message }, { status: 400 });
   if (hasKorean) {
-    // Optionally mark room inactive
+    // Mark room inactive and notify participants via a system message
     await svc.from("chat_rooms").update({ is_active: false }).eq("id", roomId);
+    // Use user-auth client so RLS insert_by_sender passes
+    await supabase.from("messages").insert({
+      room_id: roomId,
+      sender_id: user.id,
+      content: "The other person has ended the chat.",
+    });
     return NextResponse.json({ rewarded: false, reason: "korean_used" });
   }
 
@@ -74,6 +80,13 @@ export async function POST(req: NextRequest) {
   }
 
   await svc.from("chat_rooms").update({ is_active: false }).eq("id", roomId);
+
+  // Send a system-like notification message so the other side sees immediate notice
+  await supabase.from("messages").insert({
+    room_id: roomId,
+    sender_id: user.id,
+    content: "The other person has ended the chat.",
+  });
 
   return NextResponse.json({
     rewarded: true,
