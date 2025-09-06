@@ -30,9 +30,9 @@ export default function Home() {
           <div className="space-y-5 md:space-y-7 text-center 2xl:text-left">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
-              <span className="animate-pulse">🔥</span>
+              <span className="animate-pulse">🧪</span>
               <span className="text-xs md:text-sm font-medium text-primary">
-                지금 2,543명이 대화 중!
+                베타 오픈 · 지금은 이용자가 많지 않아요
               </span>
             </div>
 
@@ -49,36 +49,26 @@ export default function Home() {
             </h1>
 
             <p className="text-base md:text-lg 2xl:text-xl text-foreground/70 leading-relaxed max-w-lg mx-auto 2xl:mx-0">
-              전 세계 싱글들과{" "}
-              <span className="font-semibold text-primary">영어로만</span>{" "}
-              대화하는
+              전 세계 싱글들과 <span className="font-semibold text-primary">영어로만</span> 대화하는
               <span className="font-semibold text-accent"> 익명 소개팅</span>!
-              운명의 상대를 지금 바로 만나보세요 ✨
+              이제 막 시작했어요. 매칭까지 시간이 걸릴 수 있어요 ⏳
             </p>
 
-            {/* Stats */}
+            {/* Honest Status */}
             <div className="flex gap-6 md:gap-8 justify-center 2xl:justify-start text-center">
               <div>
-                <p className="text-2xl md:text-3xl font-bold text-primary">
-                  10초
-                </p>
-                <p className="text-xs md:text-sm text-foreground/60">
-                  평균 매칭
-                </p>
+                <p className="text-2xl md:text-3xl font-bold text-primary">Beta</p>
+                <p className="text-xs md:text-sm text-foreground/60">이제 막 시작했어요</p>
               </div>
               <div className="border-l border-foreground/10"></div>
               <div>
-                <p className="text-2xl md:text-3xl font-bold text-mint">15K+</p>
-                <p className="text-xs md:text-sm text-foreground/60">
-                  성공 커플
-                </p>
+                <p className="text-2xl md:text-3xl font-bold text-mint">대기 가능</p>
+                <p className="text-xs md:text-sm text-foreground/60">매칭이 느릴 수 있어요</p>
               </div>
               <div className="border-l border-foreground/10"></div>
               <div>
-                <p className="text-2xl md:text-3xl font-bold text-purple">
-                  4.9★
-                </p>
-                <p className="text-xs md:text-sm text-foreground/60">만족도</p>
+                <p className="text-2xl md:text-3xl font-bold text-purple">피드백 환영</p>
+                <p className="text-xs md:text-sm text-foreground/60">함께 빠르게 개선 중</p>
               </div>
             </div>
 
@@ -97,7 +87,7 @@ export default function Home() {
                 <div className="absolute inset-0 rounded-2xl bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300"></div>
               </button>
               <p className="mt-3 text-xs md:text-sm text-foreground/50 text-center 2xl:text-left">
-                무료 가입 • 익명 보장 • 즉시 매칭
+                무료 가입 • 익명 보장 • 매칭 대기 가능
               </p>
             </div>
           </div>
@@ -255,7 +245,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Trust Badges */}
+        {/* Trust Badges (honest) */}
         <section className="max-w-4xl mx-auto py-6 md:py-8 2xl:py-10 border-t border-foreground/10">
           <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-xs md:text-sm text-foreground/50">
             <div className="flex items-center gap-2">
@@ -263,16 +253,12 @@ export default function Home() {
               <span>SSL 보안</span>
             </div>
             <div className="flex items-center gap-2">
-              <span>🌐</span>
-              <span>24/7 서비스</span>
+              <span>🧑‍�</span>
+              <span>소규모 베타 · 피드백 환영</span>
             </div>
             <div className="flex items-center gap-2">
-              <span>💳</span>
-              <span>안전한 결제</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span>🎯</span>
-              <span>98% 매칭률</span>
+              <span>🚧</span>
+              <span>꾸준히 업데이트 중</span>
             </div>
           </div>
         </section>

@@ -100,10 +100,10 @@ export default function MatchPage() {
               <span className="text-3xl md:text-4xl">💕</span>
             </div>
             <h1 className="text-2xl md:text-3xl 2xl:text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
-              English Speed Dating
+              English Speed Dating (Beta)
             </h1>
             <p className="text-sm md:text-base text-foreground/70">
-              전 세계 파트너와 영어로 소개팅을 시작하세요!
+              이제 막 시작했어요. 매칭까지 시간이 걸릴 수 있어요 ⏳
             </p>
           </div>
 
@@ -119,9 +119,9 @@ export default function MatchPage() {
                   </p>
                 </div>
                 <div className="text-center p-3 rounded-xl bg-purple/10 border border-purple/20">
-                  <span className="text-2xl md:text-3xl mb-1 block">⚡</span>
+                  <span className="text-2xl md:text-3xl mb-1 block">⏳</span>
                   <p className="text-xs md:text-sm font-medium text-purple">
-                    즉시매칭
+                    대기 가능
                   </p>
                 </div>
                 <div className="text-center p-3 rounded-xl bg-orange/10 border border-orange/20">
@@ -138,7 +138,7 @@ export default function MatchPage() {
                 className="w-full px-6 py-4 md:py-5 rounded-2xl bg-gradient-to-r from-primary to-accent text-white font-bold text-base md:text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
               >
                 <span className="flex items-center justify-center gap-2">
-                  <span>운명의 상대 만나기</span>
+                  <span>매칭 시작하기</span>
                   <span className="text-xl">→</span>
                 </span>
               </button>
@@ -146,8 +146,7 @@ export default function MatchPage() {
               {/* Tips */}
               <div className="bg-background/50 rounded-xl p-4 border border-primary/10">
                 <p className="text-xs md:text-sm text-foreground/60 leading-relaxed">
-                  💡 <strong className="text-accent">Tip:</strong> 영어로만
-                  대화하면 보너스 포인트를 받을 수 있어요!
+                  💡 <strong className="text-accent">Tip:</strong> 영어로만 대화하면 보너스 포인트를 받을 수 있어요. 매칭이 늦어도 조금만 기다려 주세요.
                 </p>
               </div>
 
@@ -189,10 +188,10 @@ export default function MatchPage() {
               {/* Waiting Message */}
               <div className="text-center space-y-2">
                 <h2 className="text-lg md:text-xl font-bold text-accent">
-                  완벽한 파트너를 찾는 중...
+                  파트너를 찾는 중...
                 </h2>
                 <p className="text-xs md:text-sm text-foreground/60">
-                  잠시만 기다려주세요. 곧 매칭됩니다!
+                  현재 이용자가 많지 않아 시간이 걸릴 수 있어요.
                 </p>
               </div>
 
@@ -242,19 +241,12 @@ export default function MatchPage() {
           )}
         </div>
 
-        {/* Bottom Stats */}
-        <div className="mt-6 md:mt-8 grid grid-cols-3 gap-3 md:gap-4">
+        {/* Bottom Notes (honest) */}
+        <div className="mt-6 md:mt-8 grid grid-cols-1 gap-3 md:gap-4">
           <div className="text-center p-3 rounded-xl bg-surface/80 backdrop-blur-sm border border-primary/10">
-            <p className="text-2xl md:text-3xl font-bold text-primary">2.5K+</p>
-            <p className="text-xs md:text-sm text-foreground/60">활성 유저</p>
-          </div>
-          <div className="text-center p-3 rounded-xl bg-surface/80 backdrop-blur-sm border border-primary/10">
-            <p className="text-2xl md:text-3xl font-bold text-accent">10초</p>
-            <p className="text-xs md:text-sm text-foreground/60">평균 매칭</p>
-          </div>
-          <div className="text-center p-3 rounded-xl bg-surface/80 backdrop-blur-sm border border-primary/10">
-            <p className="text-2xl md:text-3xl font-bold text-mint">98%</p>
-            <p className="text-xs md:text-sm text-foreground/60">만족도</p>
+            <p className="text-xs md:text-sm text-foreground/60">
+              🧪 현재 베타 단계입니다. 매칭이 지연될 수 있지만, 피드백은 큰 도움이 됩니다.
+            </p>
           </div>
         </div>
       </div>
