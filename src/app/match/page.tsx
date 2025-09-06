@@ -146,7 +146,9 @@ export default function MatchPage() {
               {/* Tips */}
               <div className="bg-background/50 rounded-xl p-4 border border-primary/10">
                 <p className="text-xs md:text-sm text-foreground/60 leading-relaxed">
-                  💡 <strong className="text-accent">Tip:</strong> 영어로만 대화하면 보너스 포인트를 받을 수 있어요. 매칭이 늦어도 조금만 기다려 주세요.
+                  💡 <strong className="text-accent">Tip:</strong> 영어로만
+                  대화하면 보너스 포인트를 받을 수 있어요. 매칭이 늦어도 조금만
+                  기다려 주세요.
                 </p>
               </div>
 
@@ -245,7 +247,8 @@ export default function MatchPage() {
         <div className="mt-6 md:mt-8 grid grid-cols-1 gap-3 md:gap-4">
           <div className="text-center p-3 rounded-xl bg-surface/80 backdrop-blur-sm border border-primary/10">
             <p className="text-xs md:text-sm text-foreground/60">
-              🧪 현재 베타 단계입니다. 매칭이 지연될 수 있지만, 피드백은 큰 도움이 됩니다.
+              🧪 현재 베타 단계입니다. 매칭이 지연될 수 있지만, 피드백은 큰
+              도움이 됩니다.
             </p>
           </div>
         </div>

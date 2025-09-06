@@ -49,7 +49,9 @@ export default function Home() {
             </h1>
 
             <p className="text-base md:text-lg 2xl:text-xl text-foreground/70 leading-relaxed max-w-lg mx-auto 2xl:mx-0">
-              전 세계 싱글들과 <span className="font-semibold text-primary">영어로만</span> 대화하는
+              전 세계 싱글들과{" "}
+              <span className="font-semibold text-primary">영어로만</span>{" "}
+              대화하는
               <span className="font-semibold text-accent"> 익명 소개팅</span>!
               이제 막 시작했어요. 매칭까지 시간이 걸릴 수 있어요 ⏳
             </p>
@@ -57,18 +59,30 @@ export default function Home() {
             {/* Honest Status */}
             <div className="flex gap-6 md:gap-8 justify-center 2xl:justify-start text-center">
               <div>
-                <p className="text-2xl md:text-3xl font-bold text-primary">Beta</p>
-                <p className="text-xs md:text-sm text-foreground/60">이제 막 시작했어요</p>
+                <p className="text-2xl md:text-3xl font-bold text-primary">
+                  Beta
+                </p>
+                <p className="text-xs md:text-sm text-foreground/60">
+                  이제 막 시작했어요
+                </p>
               </div>
               <div className="border-l border-foreground/10"></div>
               <div>
-                <p className="text-2xl md:text-3xl font-bold text-mint">대기 가능</p>
-                <p className="text-xs md:text-sm text-foreground/60">매칭이 느릴 수 있어요</p>
+                <p className="text-2xl md:text-3xl font-bold text-mint">
+                  대기 가능
+                </p>
+                <p className="text-xs md:text-sm text-foreground/60">
+                  매칭이 느릴 수 있어요
+                </p>
               </div>
               <div className="border-l border-foreground/10"></div>
               <div>
-                <p className="text-2xl md:text-3xl font-bold text-purple">피드백 환영</p>
-                <p className="text-xs md:text-sm text-foreground/60">함께 빠르게 개선 중</p>
+                <p className="text-2xl md:text-3xl font-bold text-purple">
+                  피드백 환영
+                </p>
+                <p className="text-xs md:text-sm text-foreground/60">
+                  함께 빠르게 개선 중
+                </p>
               </div>
             </div>
 
