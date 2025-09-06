@@ -6,14 +6,17 @@ export default function MatchPage() {
   const [waiting, setWaiting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [stats, setStats] = useState<{ waitingCount: number; activeRooms: number } | null>(null);
   const router = useRouter();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const elapsedRef = useRef<NodeJS.Timeout | null>(null);
+  const statsRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
       if (elapsedRef.current) clearInterval(elapsedRef.current);
+  if (statsRef.current) clearInterval(statsRef.current);
     };
   }, []);
 
@@ -27,6 +30,25 @@ export default function MatchPage() {
       setElapsedTime(0);
     }
   }, [waiting]);
+
+  // Live stats polling
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchStats() {
+      try {
+        const res = await fetch("/api/match/stats", { cache: "no-store" });
+        if (!res.ok) return;
+        const j = await res.json();
+        if (!cancelled) setStats(j);
+      } catch {}
+    }
+    fetchStats();
+    statsRef.current = setInterval(fetchStats, 5000);
+    return () => {
+      cancelled = true;
+      if (statsRef.current) clearInterval(statsRef.current);
+    };
+  }, []);
 
   async function start() {
     setError(null);
@@ -125,6 +147,22 @@ export default function MatchPage() {
                   대화하면 보너스 포인트를 받을 수 있어요!
                 </p>
               </div>
+
+              {/* Live Stats */}
+              <div className="grid grid-cols-2 gap-3 md:gap-4">
+                <div className="rounded-xl border border-primary/15 bg-surface/70 p-3 text-center">
+                  <p className="text-xs md:text-sm text-foreground/60">대기 중 유저</p>
+                  <p className="text-xl md:text-2xl font-bold text-primary">
+                    {stats ? stats.waitingCount.toLocaleString() : "-"}
+                  </p>
+                </div>
+                <div className="rounded-xl border border-accent/15 bg-surface/70 p-3 text-center">
+                  <p className="text-xs md:text-sm text-foreground/60">진행 중 대화방</p>
+                  <p className="text-xl md:text-2xl font-bold text-accent">
+                    {stats ? stats.activeRooms.toLocaleString() : "-"}
+                  </p>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="space-y-4 md:space-y-6">
@@ -163,6 +201,22 @@ export default function MatchPage() {
               >
                 매칭 취소
               </button>
+
+              {/* Live Stats while waiting */}
+              <div className="grid grid-cols-2 gap-3 md:gap-4">
+                <div className="rounded-xl border border-primary/15 bg-surface/70 p-3 text-center">
+                  <p className="text-xs md:text-sm text-foreground/60">대기 중 유저</p>
+                  <p className="text-xl md:text-2xl font-bold text-primary">
+                    {stats ? stats.waitingCount.toLocaleString() : "-"}
+                  </p>
+                </div>
+                <div className="rounded-xl border border-accent/15 bg-surface/70 p-3 text-center">
+                  <p className="text-xs md:text-sm text-foreground/60">진행 중 대화방</p>
+                  <p className="text-xl md:text-2xl font-bold text-accent">
+                    {stats ? stats.activeRooms.toLocaleString() : "-"}
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 
