@@ -26,6 +26,23 @@ export async function signUpWithEmail(params: {
   const id = signUpData.user?.id;
   if (!id) throw new Error("Sign up succeeded but user ID missing");
 
+  // If email confirmation is enabled, there will be no session yet.
+  // In that case, don't call the API (would 401). Stash pending profile
+  // and return with a flag so the UI can inform the user to verify email.
+  if (!signUpData.session) {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "pending_profile",
+        JSON.stringify({ nickname, gender, age_group })
+      );
+    }
+    return {
+      user: signUpData.user,
+      profile: null,
+      needsEmailConfirmation: true,
+    } as const;
+  }
+
   // Create profile via API route to leverage RLS checks and cookie auth
   // Note: if email confirmation is required, session may be null and the
   // server route will return 401. In that case, stash pending profile data
@@ -41,7 +58,7 @@ export async function signUpWithEmail(params: {
       return {
         user: signUpData.user,
         profile: json.profile,
-        needsEmailConfirmation: !signUpData.session,
+        needsEmailConfirmation: false,
       } as const;
     }
     const j = await res.json().catch(() => ({}));

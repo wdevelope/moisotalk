@@ -66,11 +66,11 @@ export default function SignupPage() {
               className="flex-1 border border-foreground/20 rounded-lg px-3 md:px-4 py-2.5 md:py-3 bg-background focus:border-primary focus:outline-none transition text-sm md:text-base"
               value={form.gender}
               onChange={(e) => setForm({ ...form, gender: e.target.value })}
+              required
             >
-              <option value="">성별(선택)</option>
+              <option value="">성별 선택</option>
               <option value="male">남성</option>
               <option value="female">여성</option>
-              <option value="other">기타/선택안함</option>
             </select>
             <select
               className="flex-1 border border-foreground/20 rounded-lg px-3 md:px-4 py-2.5 md:py-3 bg-background focus:border-primary focus:outline-none transition text-sm md:text-base"
