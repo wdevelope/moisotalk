@@ -23,71 +23,192 @@ export default function Home() {
   }
 
   return (
-    <div className="font-sans bg-background text-foreground min-h-screen">
+    <div className="font-sans bg-gradient-to-b from-background via-surface/30 to-background text-foreground min-h-screen">
       <main className="px-4 md:px-6 2xl:px-10">
         {/* Hero */}
-        <section className="max-w-6xl mx-auto py-8 md:py-12 2xl:py-20 grid grid-cols-1 2xl:grid-cols-2 gap-8 2xl:gap-10 items-center">
-          <div className="space-y-4 md:space-y-6 text-center 2xl:text-left">
-            <h1 className="text-2xl md:text-4xl 2xl:text-6xl font-extrabold leading-tight tracking-tight">
-              <span className="text-accent block md:inline">
-                무작위 영어 소개팅으로 만나는
+        <section className="max-w-6xl mx-auto py-8 md:py-12 2xl:py-20 grid grid-cols-1 2xl:grid-cols-2 gap-8 2xl:gap-12 items-center">
+          <div className="space-y-5 md:space-y-7 text-center 2xl:text-left">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
+              <span className="animate-pulse">🔥</span>
+              <span className="text-xs md:text-sm font-medium text-primary">
+                지금 2,543명이 대화 중!
               </span>
-              <span className="block flex items-center justify-center 2xl:justify-start gap-2 text-primary mt-1 md:mt-0">
-                <Image
-                  src="/logo_without_text.png"
-                  alt="MoisoTalk 로고"
-                  width={40}
-                  height={40}
-                  className="md:w-12 md:h-12 2xl:w-14 2xl:h-14 drop-shadow-lg"
-                />
-                MoisoTalk
+            </div>
+
+            <h1 className="text-3xl md:text-5xl 2xl:text-7xl font-extrabold leading-tight tracking-tight">
+              <span className="bg-gradient-to-r from-primary via-accent to-purple bg-clip-text text-transparent">
+                Global Love,
+              </span>
+              <span className="block mt-1 md:mt-2">
+                <span className="text-foreground">English Only</span>
+                <span className="inline-block ml-2 md:ml-3 animate-bounce">
+                  💝
+                </span>
               </span>
             </h1>
-            <p className="text-sm md:text-base 2xl:text-lg text-foreground/80 leading-relaxed max-w-lg mx-auto 2xl:mx-0">
-              버튼 한 번으로 랜덤 매칭되고, 실시간으로 영어만 사용해 소개팅해요.
-              한국어 사용 시 포인트가 차감되고, 올-잉글리시로 마치면 보너스를
-              받아요. 포인트는 언제든 충전할 수 있습니다!
+
+            <p className="text-base md:text-lg 2xl:text-xl text-foreground/70 leading-relaxed max-w-lg mx-auto 2xl:mx-0">
+              전 세계 싱글들과{" "}
+              <span className="font-semibold text-primary">영어로만</span>{" "}
+              대화하는
+              <span className="font-semibold text-accent"> 익명 소개팅</span>!
+              운명의 상대를 지금 바로 만나보세요 ✨
             </p>
-            <div className="flex justify-center 2xl:justify-start">
+
+            {/* Stats */}
+            <div className="flex gap-6 md:gap-8 justify-center 2xl:justify-start text-center">
+              <div>
+                <p className="text-2xl md:text-3xl font-bold text-primary">
+                  10초
+                </p>
+                <p className="text-xs md:text-sm text-foreground/60">
+                  평균 매칭
+                </p>
+              </div>
+              <div className="border-l border-foreground/10"></div>
+              <div>
+                <p className="text-2xl md:text-3xl font-bold text-mint">15K+</p>
+                <p className="text-xs md:text-sm text-foreground/60">
+                  성공 커플
+                </p>
+              </div>
+              <div className="border-l border-foreground/10"></div>
+              <div>
+                <p className="text-2xl md:text-3xl font-bold text-purple">
+                  4.9★
+                </p>
+                <p className="text-xs md:text-sm text-foreground/60">만족도</p>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="pt-2 md:pt-4">
               <button
                 onClick={onStart}
                 disabled={starting}
-                className="px-5 md:px-6 py-2.5 md:py-3 rounded-lg md:rounded-xl border border-mint/40 text-sm md:text-base hover:bg-mint/10 transition text-center text-mint font-medium shadow-sm disabled:opacity-60"
+                className="group relative px-8 md:px-10 py-4 md:py-5 rounded-2xl bg-gradient-to-r from-primary to-accent text-white font-bold text-base md:text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.03] transition-all duration-200 disabled:opacity-60"
               >
-                {starting ? "이동 중..." : "소개팅 바로 시작"}
+                <span className="flex items-center justify-center gap-3">
+                  <span className="text-xl md:text-2xl">💘</span>
+                  <span>{starting ? "준비 중..." : "운명 찾기 START"}</span>
+                  <span className="text-xl md:text-2xl animate-pulse">→</span>
+                </span>
+                <div className="absolute inset-0 rounded-2xl bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-300"></div>
               </button>
+              <p className="mt-3 text-xs md:text-sm text-foreground/50 text-center 2xl:text-left">
+                무료 가입 • 익명 보장 • 즉시 매칭
+              </p>
             </div>
           </div>
 
-          <div className="flex justify-center 2xl:justify-end">
-            <div className="relative w-full max-w-[320px] md:max-w-[380px] 2xl:max-w-[420px] aspect-[4/3] rounded-lg md:rounded-xl border border-primary/20 overflow-hidden bg-gradient-to-br from-primary/5 to-surface">
-              <div className="absolute inset-0 bg-gradient-to-br from-foreground/5 to-transparent" />
-              <div className="absolute inset-0 p-3 md:p-4 2xl:p-6 flex flex-col gap-2 md:gap-3 2xl:gap-4">
-                <div className="flex items-center gap-2 text-xs md:text-sm">
-                  <span className="text-base md:text-lg">💬</span>
-                  <span className="font-mono text-primary font-semibold">
-                    Realtime
-                  </span>
+          {/* Visual Section */}
+          <div className="relative flex justify-center 2xl:justify-end">
+            {/* Background Decoration */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-primary/20 via-purple/20 to-mint/20 blur-3xl animate-pulse"></div>
+            </div>
+
+            {/* Chat Preview Cards Stack */}
+            <div className="relative">
+              {/* Card 1 - Background */}
+              <div className="absolute top-4 left-4 w-[280px] md:w-[340px] p-4 md:p-5 rounded-2xl bg-gradient-to-br from-purple/10 to-purple/5 border border-purple/20 transform rotate-3 hover:rotate-6 transition-transform">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-purple/20 flex items-center justify-center">
+                    <span>👩</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">Emma, 26</p>
+                    <p className="text-xs text-foreground/60">London, UK</p>
+                  </div>
                 </div>
-                <div className="flex-1 rounded-lg border border-primary/15 p-2 md:p-3 text-xs md:text-sm bg-background/80">
-                  <p className="opacity-80 mb-1">
-                    You: Hi! Where are you from?
-                  </p>
-                  <p className="opacity-80 mb-1">
-                    Partner: I'm from Toronto. You?
-                  </p>
-                  <p className="opacity-80">You: Seoul! Nice to meet you :)</p>
+                <div className="space-y-2 text-xs md:text-sm">
+                  <div className="bg-white/50 dark:bg-black/20 rounded-xl px-3 py-2">
+                    "I love traveling! Where's your dream destination?"
+                  </div>
                 </div>
-                <div className="grid grid-cols-3 gap-2 md:gap-3 text-xs">
-                  <div className="rounded-lg md:rounded-xl border border-mint/30 bg-mint/10 p-1.5 md:p-2 text-center text-mint font-medium">
-                    Random Match
+              </div>
+
+              {/* Card 2 - Middle */}
+              <div className="absolute top-2 left-2 w-[280px] md:w-[340px] p-4 md:p-5 rounded-2xl bg-gradient-to-br from-mint/10 to-mint/5 border border-mint/20 transform -rotate-2 hover:-rotate-4 transition-transform">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-mint/20 flex items-center justify-center">
+                    <span>👨</span>
                   </div>
-                  <div className="rounded-lg md:rounded-xl border border-purple/30 bg-purple/10 p-1.5 md:p-2 text-center text-purple font-medium">
-                    Points
+                  <div>
+                    <p className="text-sm font-semibold">James, 28</p>
+                    <p className="text-xs text-foreground/60">Seoul, Korea</p>
                   </div>
-                  <div className="rounded-lg md:rounded-xl border border-orange/30 bg-orange/10 p-1.5 md:p-2 text-center text-orange font-medium">
-                    English Only
+                </div>
+                <div className="space-y-2 text-xs md:text-sm">
+                  <div className="bg-white/50 dark:bg-black/20 rounded-xl px-3 py-2">
+                    "Japan! I want to see cherry blossoms 🌸"
                   </div>
+                </div>
+              </div>
+
+              {/* Card 3 - Front (Active) */}
+              <div className="relative z-10 w-[280px] md:w-[340px] p-4 md:p-5 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/30 shadow-2xl transform hover:scale-[1.02] transition-all">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold">
+                        ?
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-mint rounded-full border-2 border-white animate-pulse"></div>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold">New Match!</p>
+                      <p className="text-xs text-mint font-medium">
+                        Online now
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-2xl animate-pulse">💕</span>
+                </div>
+
+                {/* Chat Messages */}
+                <div className="space-y-2 text-xs md:text-sm mb-4">
+                  <div className="bg-white/60 dark:bg-black/30 rounded-xl px-3 py-2 self-start">
+                    "Hi! Nice to meet you! 😊"
+                  </div>
+                  <div className="bg-gradient-to-r from-primary/20 to-accent/20 rounded-xl px-3 py-2 text-right">
+                    "Hello! Where are you from?"
+                  </div>
+                  <div className="flex items-center gap-1 text-foreground/40">
+                    <span className="animate-bounce">.</span>
+                    <span
+                      className="animate-bounce"
+                      style={{ animationDelay: "0.1s" }}
+                    >
+                      .
+                    </span>
+                    <span
+                      className="animate-bounce"
+                      style={{ animationDelay: "0.2s" }}
+                    >
+                      .
+                    </span>
+                  </div>
+                </div>
+
+                {/* Points indicator */}
+                <div className="flex items-center justify-between pt-2 border-t border-foreground/10">
+                  <div className="flex gap-2">
+                    <span className="px-2 py-1 rounded-full bg-mint/20 text-mint text-xs font-medium">
+                      English Only
+                    </span>
+                    <span className="px-2 py-1 rounded-full bg-orange/20 text-orange text-xs font-medium">
+                      +2 Points
+                    </span>
+                  </div>
+                  <Image
+                    src="/logo.png"
+                    alt="MoisoTalk"
+                    width={24}
+                    height={24}
+                    className="opacity-50"
+                  />
                 </div>
               </div>
             </div>
@@ -95,65 +216,98 @@ export default function Home() {
         </section>
 
         {/* Features */}
-        <section className="max-w-6xl mx-auto py-6 md:py-8 2xl:py-10 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4 md:gap-6">
-          <Feature
-            icon="💕"
-            title="랜덤 매칭"
-            desc="대기열에서 두 명을 무작위 매칭. 바로 소개팅을 시작해요."
-            color="mint"
-          />
-          <Feature
-            icon="⚡"
-            title="실시간 소개팅"
-            desc="메시지가 즉시 동기화되어 매끄럽게 대화할 수 있어요."
-            color="purple"
-          />
-          <Feature
-            icon="🎯"
-            title="포인트 규칙"
-            desc="한국어 사용 시 -1, 올-잉글리시 완료 시 +2 보너스! 포인트 부족 시 언제든 충전 가능해요."
-            color="orange"
-          />
+        <section className="max-w-6xl mx-auto py-8 md:py-12 2xl:py-16">
+          <h2 className="text-2xl md:text-3xl 2xl:text-4xl font-bold text-center mb-8 md:mb-12">
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Why MoisoTalk?
+            </span>
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-4 md:gap-6">
+            <FeatureCard
+              icon="🌍"
+              title="Global Dating"
+              desc="전 세계 싱글들과 실시간 매칭"
+              gradient="from-primary/10 to-accent/10"
+              borderColor="border-primary/20"
+            />
+            <FeatureCard
+              icon="⚡"
+              title="Instant Match"
+              desc="평균 10초 내 운명의 상대 발견"
+              gradient="from-mint/10 to-teal-500/10"
+              borderColor="border-mint/20"
+            />
+            <FeatureCard
+              icon="🎭"
+              title="Anonymous Chat"
+              desc="부담 없는 익명 소개팅"
+              gradient="from-purple/10 to-pink-500/10"
+              borderColor="border-purple/20"
+            />
+            <FeatureCard
+              icon="🏆"
+              title="Reward System"
+              desc="영어 대화로 포인트 획득"
+              gradient="from-orange/10 to-yellow-500/10"
+              borderColor="border-orange/20"
+            />
+          </div>
+        </section>
+
+        {/* Trust Badges */}
+        <section className="max-w-4xl mx-auto py-6 md:py-8 2xl:py-10 border-t border-foreground/10">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-xs md:text-sm text-foreground/50">
+            <div className="flex items-center gap-2">
+              <span className="text-green-500">🔒</span>
+              <span>SSL 보안</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>🌐</span>
+              <span>24/7 서비스</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>💳</span>
+              <span>안전한 결제</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>🎯</span>
+              <span>98% 매칭률</span>
+            </div>
+          </div>
         </section>
       </main>
     </div>
   );
 }
 
-function Feature({
+function FeatureCard({
   icon,
   title,
   desc,
-  color,
+  gradient,
+  borderColor,
 }: {
   icon: string;
   title: string;
   desc: string;
-  color: "mint" | "purple" | "orange";
+  gradient: string;
+  borderColor: string;
 }) {
-  const colorClasses = {
-    mint: "border-mint/20 bg-mint/5 text-mint shadow-sm hover:shadow-md transition-all",
-    purple:
-      "border-purple/20 bg-purple/5 text-purple shadow-sm hover:shadow-md transition-all",
-    orange:
-      "border-orange/20 bg-orange/5 text-orange shadow-sm hover:shadow-md transition-all",
-  } as const;
-
   return (
     <div
-      className={`rounded-lg md:rounded-xl border p-3 md:p-4 2xl:p-6 ${colorClasses[color]}`}
+      className={`group relative rounded-xl md:rounded-2xl border ${borderColor} p-4 md:p-5 2xl:p-6 bg-gradient-to-br ${gradient} hover:scale-[1.02] transition-all duration-200 cursor-pointer`}
     >
-      <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
-        <span className="text-xl md:text-2xl 2xl:text-3xl" aria-hidden>
+      <div className="text-center space-y-3">
+        <div className="text-3xl md:text-4xl 2xl:text-5xl group-hover:scale-110 transition-transform">
           {icon}
-        </span>
-        <h3 className="font-semibold text-accent text-sm md:text-base 2xl:text-lg">
+        </div>
+        <h3 className="font-bold text-sm md:text-base 2xl:text-lg text-foreground">
           {title}
         </h3>
+        <p className="text-xs md:text-sm text-foreground/70">{desc}</p>
       </div>
-      <p className="text-xs md:text-sm 2xl:text-base text-foreground/80">
-        {desc}
-      </p>
+      <div className="absolute inset-0 rounded-xl md:rounded-2xl bg-white/5 dark:bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
     </div>
   );
 }

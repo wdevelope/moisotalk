@@ -8,9 +8,7 @@ export async function GET() {
     const supabase = getServiceClient();
 
     const [waitingRes, activeRes] = await Promise.all([
-      supabase
-        .from("waiting_pool")
-        .select("*", { count: "exact", head: true }),
+      supabase.from("waiting_pool").select("*", { count: "exact", head: true }),
       supabase
         .from("chat_rooms")
         .select("*", { count: "exact", head: true })
