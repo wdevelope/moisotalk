@@ -7,6 +7,7 @@ create table if not exists public.profiles (
   nickname text unique not null,
   gender text,
   age_group text,
+  role text not null default 'user',
   points integer not null default 100,
   created_at timestamp with time zone not null default now()
 );
@@ -87,6 +88,29 @@ drop policy if exists "profiles_update_self" on public.profiles;
 create policy "profiles_update_self" on public.profiles
   for update
   using (auth.uid() = id);
+
+-- allow admins to update any profile row
+drop policy if exists "profiles_update_admin" on public.profiles;
+create policy "profiles_update_admin" on public.profiles
+  for update
+  using (
+    exists (
+      select 1 from public.profiles p
+      where p.id = auth.uid() and p.role = 'admin'
+    )
+  );
+
+-- ensure role column exists for existing deployments and has a constraint
+alter table if exists public.profiles add column if not exists role text not null default 'user';
+do $$
+begin
+  if not exists (
+    select 1 from pg_constraint
+    where conname = 'profiles_role_check'
+  ) then
+    alter table public.profiles add constraint profiles_role_check check (role in ('user','admin'));
+  end if;
+end $$;
 
 drop policy if exists "chat_rooms_select_all" on public.chat_rooms;
 create policy "chat_rooms_select_all" on public.chat_rooms
