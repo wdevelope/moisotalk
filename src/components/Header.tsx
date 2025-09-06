@@ -53,7 +53,7 @@ export function Header() {
                 className="px-2 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl border border-accent/30 hover:bg-accent/10 transition-all text-xs md:text-sm"
               >
                 <span className="hidden md:inline">마이페이지</span>
-                <span className="md:hidden">마이</span>
+                <span className="md:hidden">마이페이지</span>
               </Link>
               <LogoutButton />
             </>
