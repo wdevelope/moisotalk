@@ -10,6 +10,19 @@ export async function POST(_req: NextRequest) {
   if (!user)
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
+  // Ensure profile exists before enqueuing (FK waiting_pool.user_id -> profiles.id)
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("id")
+    .eq("id", user.id)
+    .single();
+  if (!profile) {
+    return NextResponse.json(
+      { error: "profile missing; please relogin to finalize signup" },
+      { status: 400 }
+    );
+  }
+
   const { error } = await supabase
     .from("waiting_pool")
     .upsert(

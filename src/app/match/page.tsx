@@ -68,7 +68,11 @@ export default function MatchPage() {
 
   async function tryMatch() {
     const res = await fetch("/api/match/try", { method: "POST" });
-    if (!res.ok) return; // keep polling
+    if (!res.ok) {
+      const j = await res.json().catch(() => ({}));
+      if (j?.error) setError(j.error);
+      return; // keep polling
+    }
     const { roomId } = await res.json();
     if (roomId) {
       if (timerRef.current) clearInterval(timerRef.current);

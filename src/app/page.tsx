@@ -38,10 +38,10 @@ export default function Home() {
 
             <h1 className="text-3xl md:text-5xl 2xl:text-7xl font-extrabold leading-tight tracking-tight">
               <span className="bg-gradient-to-r from-primary via-accent to-purple bg-clip-text text-transparent">
-                Global Love,
+                영어로 대화하는
               </span>
               <span className="block mt-1 md:mt-2">
-                <span className="text-foreground">English Only</span>
+                <span className="text-foreground">랜덤 소개팅</span>
                 <span className="inline-block ml-2 md:ml-3 animate-bounce">
                   💝
                 </span>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getBrowserClient } from "@/lib/supabaseClient";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import LogoutButton from "@/components/LogoutButton";
+import { ensurePendingProfile } from "@/lib/auth";
 
 export function Header() {
   const supabase = getBrowserClient();
@@ -17,10 +18,16 @@ export function Header() {
     supabase.auth.getUser().then(({ data }) => {
       if (!mounted) return;
       setHasUser(!!data.user);
+      if (data.user) {
+        ensurePendingProfile().catch(() => {});
+      }
     });
     // Subscribe to auth state changes to update header immediately
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       setHasUser(!!session?.user);
+      if (session?.user) {
+        ensurePendingProfile().catch(() => {});
+      }
     });
     return () => {
       mounted = false;

@@ -1,6 +1,9 @@
 -- Supabase schema for moisotalk (Phase 1)
 -- Run in Supabase SQL editor or via CLI.
 
+-- Ensure UUID generation is available for gen_random_uuid()
+create extension if not exists pgcrypto;
+
 -- 1) profiles table linked to auth.users
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
@@ -189,11 +192,19 @@ begin
     return null;
   end if;
 
-  -- pick the oldest other user
-  select user_id into other
-  from public.waiting_pool
-  where user_id <> p_user
-  order by enqueued_at asc
+  -- ensure caller has a profile (avoid FK errors)
+  if not exists (select 1 from public.profiles where id = p_user) then
+    -- remove from queue to avoid stuck entries and return null
+    delete from public.waiting_pool where user_id = p_user;
+    return null;
+  end if;
+
+  -- pick the oldest other user who also has a profile
+  select wp.user_id into other
+  from public.waiting_pool wp
+  join public.profiles pr on pr.id = wp.user_id
+  where wp.user_id <> p_user
+  order by wp.enqueued_at asc
   limit 1;
 
   if other is null then
