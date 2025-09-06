@@ -103,7 +103,7 @@ export default function MatchPage() {
               English Speed Dating (Beta)
             </h1>
             <p className="text-sm md:text-base text-foreground/70">
-              이제 막 시작했어요. 매칭까지 시간이 걸릴 수 있어요 ⏳
+              매칭까지 시간이 걸릴 수 있어요 ⏳
             </p>
           </div>
 
@@ -241,16 +241,6 @@ export default function MatchPage() {
               </p>
             </div>
           )}
-        </div>
-
-        {/* Bottom Notes (honest) */}
-        <div className="mt-6 md:mt-8 grid grid-cols-1 gap-3 md:gap-4">
-          <div className="text-center p-3 rounded-xl bg-surface/80 backdrop-blur-sm border border-primary/10">
-            <p className="text-xs md:text-sm text-foreground/60">
-              🧪 현재 베타 단계입니다. 매칭이 지연될 수 있지만, 피드백은 큰
-              도움이 됩니다.
-            </p>
-          </div>
         </div>
       </div>
     </div>
