@@ -152,7 +152,7 @@ export default function ChatRoomPage() {
           <div className="h-full flex items-center justify-center">
             <div className="text-center p-4 sm:p-6 rounded-lg sm:rounded-xl bg-background/80 border border-primary/10 backdrop-blur-sm max-w-sm">
               <div className="text-purple text-base sm:text-lg font-semibold mb-2">
-                환영합니다! 🎯
+                소개팅 시작! 💕
               </div>
               <p className="text-foreground/70 text-xs sm:text-sm">
                 영어로 대화해보세요. 한국어 사용 시 포인트가 차감됩니다.
@@ -176,7 +176,7 @@ export default function ChatRoomPage() {
       <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row gap-2 items-stretch sm:items-center p-3 sm:p-4 bg-surface rounded-lg sm:rounded-xl border border-primary/20">
         <input
           className="flex-1 border border-foreground/20 rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-background focus:border-primary focus:outline-none transition text-sm"
-          placeholder="메시지를 입력하세요"
+          placeholder="영어로 대화해보세요..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
@@ -196,7 +196,7 @@ export default function ChatRoomPage() {
             onClick={endChat}
             className="px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-accent/30 hover:bg-accent/10 text-accent font-medium transition text-sm"
           >
-            종료
+            소개팅 종료
           </button>
           {points !== null && (
             <div className="px-2 sm:px-3 py-2 rounded-lg bg-mint/10 border border-mint/20 flex items-center">

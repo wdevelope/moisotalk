@@ -47,10 +47,10 @@ export default function MatchPage() {
     <div className="max-w-lg mx-auto py-6 sm:py-10 px-4 sm:px-6 font-sans text-foreground">
       <div className="bg-surface rounded-lg sm:rounded-xl border border-primary/20 p-4 sm:p-6 lg:p-8 shadow-sm">
         <h1 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-accent">
-          랜덤 매칭
+          랜덤 소개팅
         </h1>
         <p className="text-xs sm:text-sm text-foreground/80 mb-4 sm:mb-6">
-          대기열에 등록하면 다른 사용자와 무작위로 매칭됩니다.
+          대기열에 등록하면 다른 사용자와 무작위로 소개팅 매칭됩니다.
         </p>
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
           <button
@@ -58,7 +58,7 @@ export default function MatchPage() {
             disabled={waiting}
             className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg bg-primary text-primary-foreground disabled:opacity-60 font-semibold hover:opacity-90 transition flex-1 text-sm sm:text-base"
           >
-            {waiting ? "대기 중..." : "채팅 시작"}
+            {waiting ? "매칭 대기 중..." : "소개팅 시작"}
           </button>
           {waiting && (
             <button

@@ -9,7 +9,7 @@ export default function Home() {
           <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight">
               <span className="text-accent block sm:inline">
-                무작위 영어 채팅으로 배우는
+                무작위 영어 소개팅으로 만나는
               </span>
               <span className="block flex items-center justify-center lg:justify-start gap-2 text-primary mt-1 sm:mt-0">
                 <Image
@@ -23,7 +23,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-sm sm:text-base lg:text-lg text-foreground/80 leading-relaxed max-w-lg mx-auto lg:mx-0">
-              버튼 한 번으로 랜덤 매칭되고, 실시간으로 영어만 사용해 대화해요.
+              버튼 한 번으로 랜덤 매칭되고, 실시간으로 영어만 사용해 소개팅해요.
               한국어 사용 시 포인트가 차감되고, 올-잉글리시로 마치면 보너스를
               받아요. 포인트는 언제든 충전할 수 있습니다!
             </p>
@@ -44,7 +44,7 @@ export default function Home() {
                 href="/match"
                 className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-mint/40 text-sm sm:text-base hover:bg-mint/10 transition text-center text-mint"
               >
-                채팅 바로 시작
+                소개팅 바로 시작
               </Link>
             </div>
           </div>
@@ -85,14 +85,14 @@ export default function Home() {
 
         <section className="max-w-6xl mx-auto py-6 sm:py-8 lg:py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <Feature
-            icon="🌍"
+            icon="💕"
             title="랜덤 매칭"
-            desc="대기열에서 두 명을 무작위 매칭. 바로 대화를 시작해요."
+            desc="대기열에서 두 명을 무작위 매칭. 바로 소개팅을 시작해요."
             color="mint"
           />
           <Feature
             icon="💬"
-            title="실시간 채팅"
+            title="실시간 소개팅"
             desc="메시지가 즉시 동기화되어 매끄럽게 대화할 수 있어요."
             color="purple"
           />
