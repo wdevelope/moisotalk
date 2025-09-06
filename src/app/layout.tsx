@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ToastProvider } from "@/components/ToastProvider";
 import { Header } from "@/components/Header";
 import "./globals.css";
 
@@ -39,13 +40,15 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider defaultTheme="light" storageKey="moisotalk-ui-theme">
-          <Header />
-          {children}
-          <footer className="px-4 md:px-6 2xl:px-10 py-6 md:py-10 bg-surface border-t border-accent/10 mt-8 md:mt-10">
-            <div className="max-w-6xl mx-auto text-xs md:text-sm text-foreground/60">
-              © {new Date().getFullYear()} MoisoTalk
-            </div>
-          </footer>
+          <ToastProvider>
+            <Header />
+            {children}
+            <footer className="px-4 md:px-6 2xl:px-10 py-6 md:py-10 bg-surface border-t border-accent/10 mt-8 md:mt-10">
+              <div className="max-w-6xl mx-auto text-xs md:text-sm text-foreground/60">
+                © {new Date().getFullYear()} MoisoTalk
+              </div>
+            </footer>
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>

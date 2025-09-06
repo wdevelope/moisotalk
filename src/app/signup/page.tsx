@@ -1,11 +1,16 @@
 "use client";
 import { useState } from "react";
 import { signUpWithEmail } from "@/lib/auth";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ToastProvider";
 
 export default function SignupPage() {
+  const router = useRouter();
+  const { show } = useToast();
   const [form, setForm] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
     nickname: "",
     gender: "",
     age_group: "",
@@ -15,15 +20,35 @@ export default function SignupPage() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
     setMessage(null);
+    // 비밀번호 확인
+    if (form.password !== form.confirmPassword) {
+      setMessage("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    setLoading(true);
     try {
-      const res = await signUpWithEmail(form);
-      if (res.needsEmailConfirmation) {
-        setMessage("가입 완료! 이메일 인증 후 로그인해 주세요.");
+      // 필요한 필드만 전달
+      const res = await signUpWithEmail({
+        email: form.email,
+        password: form.password,
+        nickname: form.nickname,
+        gender: form.gender,
+        age_group: form.age_group,
+      });
+      // 이메일 인증이 켜져있는 경우: 안내 메시지 표시, 아니면 로그인으로 이동
+      if (
+        res &&
+        "needsEmailConfirmation" in res &&
+        res.needsEmailConfirmation
+      ) {
+        const msg = "가입 완료! 이메일 인증 후 로그인해 주세요.";
+        setMessage(msg);
+        show(msg, { variant: "info" });
       } else {
-        setMessage("프로필이 생성되었습니다. 이제 로그인할 수 있어요.");
+        router.replace("/login");
       }
+      return;
     } catch (err: any) {
       setMessage(err.message ?? "회원가입 중 오류가 발생했습니다.");
     } finally {
@@ -54,6 +79,23 @@ export default function SignupPage() {
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
+          <div>
+            <input
+              className="w-full border border-foreground/20 rounded-lg px-3 md:px-4 py-2.5 md:py-3 bg-background focus:border-primary focus:outline-none transition text-sm md:text-base"
+              placeholder="비밀번호 확인"
+              type="password"
+              required
+              value={form.confirmPassword}
+              onChange={(e) =>
+                setForm({ ...form, confirmPassword: e.target.value })
+              }
+            />
+            {form.confirmPassword && form.password !== form.confirmPassword && (
+              <p className="mt-1 text-xs md:text-sm text-orange">
+                비밀번호가 일치하지 않습니다.
+              </p>
+            )}
+          </div>
           <input
             className="w-full border border-foreground/20 rounded-lg px-3 md:px-4 py-2.5 md:py-3 bg-background focus:border-primary focus:outline-none transition text-sm md:text-base"
             placeholder="닉네임"
@@ -86,15 +128,20 @@ export default function SignupPage() {
             </select>
           </div>
           <button
-            disabled={loading}
+            disabled={
+              loading ||
+              (Boolean(form.password) &&
+                Boolean(form.confirmPassword) &&
+                form.password !== form.confirmPassword)
+            }
             className="w-full bg-primary text-primary-foreground py-2.5 md:py-3 rounded-lg disabled:opacity-60 font-semibold hover:opacity-90 transition text-sm md:text-base"
           >
             {loading ? "가입 중..." : "가입하기"}
           </button>
         </form>
         {message && (
-          <div className="mt-3 md:mt-4 p-3 rounded-lg bg-mint/10 border border-mint/20">
-            <p className="text-xs md:text-sm text-mint">{message}</p>
+          <div className="mt-3 md:mt-4 p-3 rounded-lg bg-orange/10 border border-orange/20">
+            <p className="text-xs md:text-sm text-orange">{message}</p>
           </div>
         )}
       </div>
