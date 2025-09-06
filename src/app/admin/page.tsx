@@ -39,6 +39,22 @@ export default async function AdminPage() {
     .order("created_at", { ascending: false })
     .limit(50);
 
+  // Aggregate stats
+  const [{ count: roomsTotal }, { count: roomsActive }] = await Promise.all([
+    supabase.from("chat_rooms").select("id", { count: "exact", head: true }),
+    supabase
+      .from("chat_rooms")
+      .select("id", { count: "exact", head: true })
+      .eq("is_active", true),
+  ]);
+  const [{ count: totalParticipants }, { count: totalMessages }] =
+    await Promise.all([
+      supabase
+        .from("chat_participants")
+        .select("room_id", { count: "exact", head: true }),
+      supabase.from("messages").select("id", { count: "exact", head: true }),
+    ]);
+
   return (
     <div className="max-w-5xl mx-auto p-6 font-sans text-foreground">
       <h1 className="text-2xl font-bold text-accent mb-4">Admin Dashboard</h1>
@@ -47,6 +63,33 @@ export default async function AdminPage() {
           {error.message}
         </div>
       )}
+      {/* Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
+        <div className="p-4 rounded-xl bg-background border border-primary/20">
+          <div className="text-xs text-foreground/60">총 채팅방</div>
+          <div className="text-xl font-bold text-accent">{roomsTotal ?? 0}</div>
+        </div>
+        <div className="p-4 rounded-xl bg-background border border-primary/20">
+          <div className="text-xs text-foreground/60">진행중 채팅방</div>
+          <div className="text-xl font-bold text-primary">
+            {roomsActive ?? 0}
+          </div>
+        </div>
+        <div className="p-4 rounded-xl bg-background border border-primary/20">
+          <div className="text-xs text-foreground/60">총 매칭 참가자수</div>
+          <div className="text-xl font-bold text-purple">
+            {totalParticipants ?? 0}
+          </div>
+        </div>
+        <div className="p-4 rounded-xl bg-background border border-primary/20">
+          <div className="text-xs text-foreground/60">총 메시지</div>
+          <div className="text-xl font-bold text-mint">
+            {totalMessages ?? 0}
+          </div>
+        </div>
+      </div>
+
+      {/* Users table */}
       <div className="overflow-x-auto bg-surface rounded-xl border border-primary/20">
         <table className="w-full text-sm">
           <thead>

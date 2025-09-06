@@ -33,7 +33,7 @@ export default async function MePage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("nickname, gender, age_group, points, created_at")
+    .select("nickname, gender, age_group, points, created_at, role")
     .eq("id", user.id)
     .single();
 
@@ -180,6 +180,25 @@ export default async function MePage() {
 
         {/* Additional Features */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {profile?.role === "admin" && (
+            <Link
+              href="/admin"
+              className="group relative overflow-hidden rounded-xl border border-accent/30 bg-accent/5 p-4 hover:shadow-md transition-all"
+            >
+              <div className="relative z-10 flex items-center gap-3">
+                <span className="text-2xl">🛠️</span>
+                <div>
+                  <p className="font-semibold text-sm text-foreground">
+                    운영자 페이지
+                  </p>
+                  <p className="text-xs text-foreground/60">
+                    유저/매칭 통계 보기
+                  </p>
+                </div>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-primary/10 translate-x-full group-hover:translate-x-0 transition-transform"></div>
+            </Link>
+          )}
           <Link
             href="/settings"
             className="group relative overflow-hidden rounded-xl border border-purple/20 bg-surface/50 p-4 hover:shadow-md transition-all"
