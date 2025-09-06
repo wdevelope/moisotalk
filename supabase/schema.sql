@@ -137,6 +137,23 @@ create policy "chat_participants_insert_self" on public.chat_participants
   for insert
   with check (auth.uid() = user_id);
 
+-- Allow the match RPC to insert both participants for a freshly created room
+-- Constraint: target user must be currently in waiting_pool and room must be very recent
+drop policy if exists "chat_participants_insert_match_window" on public.chat_participants;
+create policy "chat_participants_insert_match_window" on public.chat_participants
+  for insert
+  with check (
+    exists (
+      select 1 from public.waiting_pool w
+      where w.user_id = chat_participants.user_id
+    )
+    and exists (
+      select 1 from public.chat_rooms r
+      where r.id = chat_participants.room_id
+        and r.created_at > now() - interval '30 seconds'
+    )
+  );
+
 drop policy if exists "messages_select_room_participants" on public.messages;
 create policy "messages_select_room_participants" on public.messages
   for select

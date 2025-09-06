@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerClient } from "@/lib/server/supabase";
+import { getServiceClient } from "@/lib/server/supabaseService";
 
 // POST /api/match/try -> attempt to find or create match and return room id
 export async function POST(_req: NextRequest) {
@@ -10,7 +11,9 @@ export async function POST(_req: NextRequest) {
   if (!user)
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
 
-  const { data, error } = await supabase.rpc("find_or_create_match", {
+  // Use service role for the RPC to bypass RLS during pairing
+  const svc = getServiceClient();
+  const { data, error } = await svc.rpc("find_or_create_match", {
     p_user: user.id,
   });
   if (error)
