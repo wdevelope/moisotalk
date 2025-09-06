@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getBrowserClient } from "@/lib/supabaseClient";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function ChatRoomPage() {
   const supabase = getBrowserClient();
   const { roomId } = useParams<{ roomId: string }>();
+  const router = useRouter();
   const [messages, setMessages] = useState<
     Array<{
       id: number;
@@ -18,6 +19,15 @@ export default function ChatRoomPage() {
   const [points, setPoints] = useState<number | null>(null);
   const [sending, setSending] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // Whose turn: it's my turn if no messages yet or last sender is not me
+  const myTurn = useMemo(() => {
+    if (!userId) return false;
+    const last = messages[messages.length - 1];
+    if (!last) return true;
+    return last.sender_id !== userId;
+  }, [messages, userId]);
 
   // Load history
   useEffect(() => {
@@ -33,6 +43,7 @@ export default function ChatRoomPage() {
       const { data: userData } = await supabase.auth.getUser();
       const u = userData.user;
       if (u) {
+        setUserId(u.id);
         const { data: prof } = await supabase
           .from("profiles")
           .select("points")
@@ -47,7 +58,7 @@ export default function ChatRoomPage() {
   // Subscribe realtime
   useEffect(() => {
     if (!roomId) return;
-    const channel = supabase
+  const channel = supabase
       .channel(`room:${roomId}`)
       .on(
         "postgres_changes",
@@ -59,22 +70,53 @@ export default function ChatRoomPage() {
         },
         (payload) => {
           const m = payload.new as any;
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: m.id,
-              sender_id: m.sender_id,
-              content: m.content,
-              created_at: m.created_at,
-            },
-          ]);
+          setMessages((prev) => {
+            if (prev.some((x) => x.id === m.id)) return prev;
+            return [
+              ...prev,
+              {
+                id: m.id,
+                sender_id: m.sender_id,
+                content: m.content,
+                created_at: m.created_at,
+              },
+            ];
+          });
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        if (status === "SUBSCRIBED") {
+          console.debug(`[realtime] subscribed room:${roomId}`);
+        } else if (status === "CHANNEL_ERROR") {
+          console.error(`[realtime] channel error room:${roomId}`);
+        }
+      });
     return () => {
       supabase.removeChannel(channel);
     };
   }, [roomId, supabase]);
+
+  // Subscribe to room end (chat_rooms.is_active -> false) and redirect both sides
+  useEffect(() => {
+    if (!roomId) return;
+    const ch = supabase
+      .channel(`room:end:${roomId}`)
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "chat_rooms", filter: `id=eq.${roomId}` },
+        (payload) => {
+          const next = (payload.new as any) || {};
+          if (next.is_active === false) {
+            alert("상대가 대화를 종료했어요.");
+            router.push("/match");
+          }
+        }
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(ch);
+    };
+  }, [roomId, supabase, router]);
 
   useEffect(() => {
     listRef.current?.scrollTo({
@@ -82,6 +124,34 @@ export default function ChatRoomPage() {
       behavior: "smooth",
     });
   }, [messages]);
+
+  // Fallback polling in case Realtime is not enabled or delayed
+  useEffect(() => {
+    if (!roomId) return;
+    const interval = setInterval(async () => {
+      const lastId = messages[messages.length - 1]?.id;
+      const lastCreated = messages[messages.length - 1]?.created_at;
+      let q = supabase
+        .from("messages")
+        .select("id, sender_id, content, created_at")
+        .eq("room_id", roomId)
+        .order("created_at", { ascending: true });
+      if (lastCreated) {
+        q = q.gt("created_at", lastCreated);
+      }
+      const { data } = await q;
+      if (data && data.length) {
+        setMessages((prev) => {
+          const next = [...prev];
+          for (const m of data) {
+            if (!next.some((x) => x.id === m.id)) next.push(m as any);
+          }
+          return next;
+        });
+      }
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [roomId, supabase, messages]);
 
   async function send() {
     const trimmed = input.trim();
@@ -112,6 +182,22 @@ export default function ChatRoomPage() {
         alert(json?.error || "전송 실패");
         return;
       }
+      // Optimistically append the message so the sender sees it immediately
+      if (json?.message) {
+        const m = json.message;
+        setMessages((prev) => {
+          if (prev.some((x) => x.id === m.id)) return prev;
+          return [
+            ...prev,
+            {
+              id: m.id,
+              sender_id: m.sender_id,
+              content: m.content,
+              created_at: m.created_at,
+            },
+          ];
+        });
+      }
       setInput("");
       if (typeof json.points === "number") setPoints(json.points);
     } finally {
@@ -137,6 +223,8 @@ export default function ChatRoomPage() {
       } else if (json.reason === "korean_used") {
         alert("한국어가 사용되어 보상은 없습니다.");
       }
+  // 종료 후 매칭 페이지로 이동
+  router.push("/match");
     } catch (e) {
       console.error(e);
     }
@@ -160,17 +248,25 @@ export default function ChatRoomPage() {
             </div>
           </div>
         ) : (
-          messages.map((m) => (
-            <div
-              key={m.id}
-              className="text-xs md:text-sm p-2 md:p-3 rounded-lg bg-background/80 border border-primary/10 backdrop-blur-sm shadow-sm"
-            >
-              <span className="font-mono text-primary/80 mr-2 font-medium text-xs">
-                {m.sender_id.slice(0, 6)}
-              </span>
-              <span className="text-foreground break-words">{m.content}</span>
-            </div>
-          ))
+          messages.map((m) => {
+            const isMe = userId && m.sender_id === userId;
+            return (
+              <div key={m.id} className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
+                <div
+                  className={`max-w-[80%] text-xs md:text-sm p-2 md:p-3 rounded-xl shadow-sm border ${
+                    isMe
+                      ? "bg-primary text-primary-foreground border-primary/30"
+                      : "bg-background/80 text-foreground border-primary/10"
+                  }`}
+                >
+                  <div className={`mb-1 text-[10px] uppercase tracking-wide ${isMe ? "text-primary-foreground/80" : "text-foreground/60"}`}>
+                    {isMe ? "me" : "you"}
+                  </div>
+                  <div className="break-words">{m.content}</div>
+                </div>
+              </div>
+            );
+          })
         )}
       </div>
       <div className="mt-3 md:mt-4 flex flex-col md:flex-row gap-2 items-stretch md:items-center p-3 md:p-4 bg-surface rounded-lg md:rounded-xl border border-primary/20">
@@ -182,13 +278,13 @@ export default function ChatRoomPage() {
           onKeyDown={(e) => {
             if (e.key === "Enter") send();
           }}
-          disabled={sending || (points !== null && points <= 0)}
+          disabled={sending || (points !== null && points <= 0) || !myTurn}
         />
         <div className="flex gap-2 md:gap-2">
           <button
             onClick={send}
             className="flex-1 md:flex-none px-4 md:px-6 py-2 md:py-3 rounded-lg bg-primary text-primary-foreground disabled:opacity-50 font-semibold hover:opacity-90 transition text-sm"
-            disabled={sending || (points !== null && points <= 0)}
+            disabled={sending || (points !== null && points <= 0) || !myTurn}
           >
             전송
           </button>
@@ -198,9 +294,14 @@ export default function ChatRoomPage() {
           >
             소개팅 종료
           </button>
-          {points !== null && (
+          {(points !== null || !myTurn) && (
             <div className="px-2 md:px-3 py-2 rounded-lg bg-mint/10 border border-mint/20 flex items-center">
-              <span className="text-xs text-mint font-medium">{points}P</span>
+              {points !== null && (
+                <span className="text-xs text-mint font-medium mr-2">{points}P</span>
+              )}
+              {!myTurn && (
+                <span className="text-[11px] text-foreground/60">상대 차례입니다…</span>
+              )}
             </div>
           )}
         </div>

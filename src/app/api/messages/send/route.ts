@@ -36,6 +36,38 @@ export async function POST(req: NextRequest) {
   // Server-side Korean detection
   const hasKorean = /[\u1100-\u11FF\u3130-\u318F\uAC00-\uD7AF]/.test(content);
 
+  // Ensure room is active and caller is a participant; also enforce turn-taking
+  // 1) room active?
+  const { data: roomRow, error: roomErr } = await supabase
+    .from("chat_rooms")
+    .select("is_active")
+    .eq("id", roomId)
+    .single();
+  if (roomErr)
+    return NextResponse.json({ error: roomErr.message }, { status: 400 });
+  if (!roomRow || roomRow.is_active === false)
+    return NextResponse.json({ error: "room_inactive" }, { status: 409 });
+  // 2) membership check
+  const { data: member } = await supabase
+    .from("chat_participants")
+    .select("user_id")
+    .eq("room_id", roomId)
+    .eq("user_id", user.id)
+    .maybeSingle();
+  if (!member)
+    return NextResponse.json({ error: "forbidden" }, { status: 403 });
+  // 3) turn check: last message must not be from the caller
+  const { data: lastMsg } = await supabase
+    .from("messages")
+    .select("sender_id")
+    .eq("room_id", roomId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (lastMsg && lastMsg.sender_id === user.id) {
+    return NextResponse.json({ error: "not_your_turn" }, { status: 409 });
+  }
+
   // Insert message
   const { data: inserted, error: insertErr } = await supabase
     .from("messages")

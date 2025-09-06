@@ -187,6 +187,21 @@ declare
   other uuid;
   room uuid;
 begin
+  -- if the user is already placed into a fresh active room (race winner was the other user),
+  -- just return that room to stop the spinner on this side
+  select cp.room_id into room
+  from public.chat_participants cp
+  join public.chat_rooms r on r.id = cp.room_id
+  where cp.user_id = p_user
+    and r.is_active = true
+    and r.created_at > now() - interval '10 minutes'
+  order by r.created_at desc
+  limit 1;
+
+  if room is not null then
+    return room;
+  end if;
+
   -- ensure caller is queued
   if not exists (select 1 from public.waiting_pool where user_id = p_user) then
     return null;
@@ -200,11 +215,12 @@ begin
   end if;
 
   -- pick the oldest other user who also has a profile
+  -- pick a random other user who also has a profile
   select wp.user_id into other
   from public.waiting_pool wp
   join public.profiles pr on pr.id = wp.user_id
   where wp.user_id <> p_user
-  order by wp.enqueued_at asc
+  order by random()
   limit 1;
 
   if other is null then
@@ -220,6 +236,26 @@ end;
 $$;
 
 grant execute on function public.find_or_create_match(uuid) to authenticated;
+
+-- Prevent re-activating an inactive chat room
+drop trigger if exists trg_prevent_reactivate_chat_room on public.chat_rooms;
+create or replace function public.prevent_reactivate_chat_room()
+returns trigger
+language plpgsql
+as $$
+begin
+  if TG_OP = 'UPDATE' then
+    if coalesce(OLD.is_active, true) = false and coalesce(NEW.is_active, false) = true then
+      raise exception 'cannot reactivate inactive chat room';
+    end if;
+  end if;
+  return NEW;
+end;
+$$;
+create trigger trg_prevent_reactivate_chat_room
+before update on public.chat_rooms
+for each row
+execute function public.prevent_reactivate_chat_room();
 
 -- Utility: check if a room has any Korean characters in messages
 create or replace function public.room_has_korean(p_room uuid)
