@@ -14,29 +14,7 @@ export default function Home() {
     setStarting(true);
     try {
       const { data } = await supabase.auth.getUser();
-      if (!data.user) {
-        router.push("/signup");
-        return;
-      }
-      // Attempt to start matching and go straight to chat if possible
-      const resStart = await fetch("/api/match/start", { method: "POST" });
-      if (!resStart.ok) {
-        router.push("/match");
-        return;
-      }
-      // Try a few quick attempts to get a room, else fall back to /match
-      for (let i = 0; i < 4; i++) {
-        const resTry = await fetch("/api/match/try", { method: "POST" });
-        if (resTry.ok) {
-          const j = await resTry.json().catch(() => ({}));
-          if (j?.roomId) {
-            router.push(`/chat/${j.roomId}`);
-            return;
-          }
-        }
-        await new Promise((r) => setTimeout(r, 700));
-      }
-      router.push("/match");
+      router.push(data.user ? "/match" : "/signup");
     } catch {
       router.push("/match");
     } finally {
@@ -76,7 +54,7 @@ export default function Home() {
                 disabled={starting}
                 className="px-5 md:px-6 py-2.5 md:py-3 rounded-lg md:rounded-xl border border-mint/40 text-sm md:text-base hover:bg-mint/10 transition text-center text-mint font-medium shadow-sm disabled:opacity-60"
               >
-                {starting ? "매칭 중..." : "소개팅 바로 시작"}
+                {starting ? "이동 중..." : "소개팅 바로 시작"}
               </button>
             </div>
           </div>
