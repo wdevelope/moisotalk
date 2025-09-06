@@ -143,18 +143,18 @@ export default function ChatRoomPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto py-4 sm:py-6 px-4 sm:px-6 h-[calc(100vh-60px)] sm:h-[calc(100vh-80px)] flex flex-col">
+    <div className="max-w-3xl mx-auto py-4 md:py-6 px-4 md:px-6 h-[calc(100vh-60px)] md:h-[calc(100vh-80px)] flex flex-col">
       <div
         ref={listRef}
-        className="flex-1 overflow-y-auto rounded-lg sm:rounded-xl border border-primary/20 p-3 sm:p-4 space-y-2 sm:space-y-3 bg-gradient-to-br from-surface to-background"
+        className="flex-1 overflow-y-auto rounded-lg md:rounded-xl border border-primary/20 p-3 md:p-4 space-y-2 md:space-y-3 bg-gradient-to-br from-surface to-background"
       >
         {messages.length === 0 ? (
           <div className="h-full flex items-center justify-center">
-            <div className="text-center p-4 sm:p-6 rounded-lg sm:rounded-xl bg-background/80 border border-primary/10 backdrop-blur-sm max-w-sm">
-              <div className="text-purple text-base sm:text-lg font-semibold mb-2">
+            <div className="text-center p-4 md:p-6 rounded-lg md:rounded-xl bg-background/80 border border-primary/10 backdrop-blur-sm max-w-sm">
+              <div className="text-purple text-base md:text-lg font-semibold mb-2">
                 소개팅 시작! 💕
               </div>
-              <p className="text-foreground/70 text-xs sm:text-sm">
+              <p className="text-foreground/70 text-xs md:text-sm">
                 영어로 대화해보세요. 한국어 사용 시 포인트가 차감됩니다.
               </p>
             </div>
@@ -163,7 +163,7 @@ export default function ChatRoomPage() {
           messages.map((m) => (
             <div
               key={m.id}
-              className="text-xs sm:text-sm p-2 sm:p-3 rounded-lg bg-background/80 border border-primary/10 backdrop-blur-sm shadow-sm"
+              className="text-xs md:text-sm p-2 md:p-3 rounded-lg bg-background/80 border border-primary/10 backdrop-blur-sm shadow-sm"
             >
               <span className="font-mono text-primary/80 mr-2 font-medium text-xs">
                 {m.sender_id.slice(0, 6)}
@@ -173,9 +173,9 @@ export default function ChatRoomPage() {
           ))
         )}
       </div>
-      <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row gap-2 items-stretch sm:items-center p-3 sm:p-4 bg-surface rounded-lg sm:rounded-xl border border-primary/20">
+      <div className="mt-3 md:mt-4 flex flex-col md:flex-row gap-2 items-stretch md:items-center p-3 md:p-4 bg-surface rounded-lg md:rounded-xl border border-primary/20">
         <input
-          className="flex-1 border border-foreground/20 rounded-lg px-3 sm:px-4 py-2 sm:py-3 bg-background focus:border-primary focus:outline-none transition text-sm"
+          className="flex-1 border border-foreground/20 rounded-lg px-3 md:px-4 py-2 md:py-3 bg-background focus:border-primary focus:outline-none transition text-sm"
           placeholder="영어로 대화해보세요..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -184,22 +184,22 @@ export default function ChatRoomPage() {
           }}
           disabled={sending || (points !== null && points <= 0)}
         />
-        <div className="flex gap-2 sm:gap-2">
+        <div className="flex gap-2 md:gap-2">
           <button
             onClick={send}
-            className="flex-1 sm:flex-none px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-primary text-primary-foreground disabled:opacity-50 font-semibold hover:opacity-90 transition text-sm"
+            className="flex-1 md:flex-none px-4 md:px-6 py-2 md:py-3 rounded-lg bg-primary text-primary-foreground disabled:opacity-50 font-semibold hover:opacity-90 transition text-sm"
             disabled={sending || (points !== null && points <= 0)}
           >
             전송
           </button>
           <button
             onClick={endChat}
-            className="px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-accent/30 hover:bg-accent/10 text-accent font-medium transition text-sm"
+            className="px-3 md:px-4 py-2 md:py-3 rounded-lg border border-accent/30 hover:bg-accent/10 text-accent font-medium transition text-sm"
           >
             소개팅 종료
           </button>
           {points !== null && (
-            <div className="px-2 sm:px-3 py-2 rounded-lg bg-mint/10 border border-mint/20 flex items-center">
+            <div className="px-2 md:px-3 py-2 rounded-lg bg-mint/10 border border-mint/20 flex items-center">
               <span className="text-xs text-mint font-medium">{points}P</span>
             </div>
           )}
