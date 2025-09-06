@@ -27,6 +27,10 @@ export const metadata: Metadata = {
     shortcut: "/favicon.png",
     apple: "/favicon.png",
   },
+  other: {
+    "naver-site-verification":
+      "ea84e759a9cda554cc0ac35815db52860299f16b",
+  },
 };
 
 export default async function RootLayout({
