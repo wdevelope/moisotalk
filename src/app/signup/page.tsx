@@ -2,11 +2,9 @@
 import { useState } from "react";
 import { signUpWithEmail } from "@/lib/auth";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/components/ToastProvider";
 
 export default function SignupPage() {
   const router = useRouter();
-  const { show } = useToast();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -36,15 +34,13 @@ export default function SignupPage() {
         gender: form.gender,
         age_group: form.age_group,
       });
-      // 이메일 인증이 켜져있는 경우: 안내 메시지 표시, 아니면 로그인으로 이동
+      // 이메일 인증이 켜져있는 경우: 성공 페이지로 이동, 아니면 로그인으로 이동
       if (
         res &&
         "needsEmailConfirmation" in res &&
         res.needsEmailConfirmation
       ) {
-        const msg = "가입 완료! 이메일 인증 후 로그인해 주세요.";
-        setMessage(msg);
-        show(msg, { variant: "info" });
+        router.replace("/signup/success");
       } else {
         router.replace("/login");
       }
